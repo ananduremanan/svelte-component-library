@@ -50,18 +50,18 @@ eg: `import Grid from '@grampro/svelte-block/Grid.svelte'`
 
 ##### Props
 
-| Property            | Type          | Description                                                                                                                                                  |
-|---------------------|---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| dataSource          | Object Array  | Receives an array of objects and maps it to create the grid columns.                                                                                         |
-| columns             | Object Array  | Receives an array of objects providing the header part of the grid.                                                                                          |
-| pageSettings        | Object        | Provides settings for pagination (both server-side rendering and client-side rendering).                                                                     |
-| enableSearch        | Boolean       | Enables a global search box.                                                                                                                                 |
-| gridHeight          | Number        | Explicitly changes the height of the grid.                                                                                                                   |
-| lazy                | Boolean       | Enables the grid to lazy load data from the server. Certain functionalities such as global search, pagination, etc., may behave differently in lazy loaded grids. |
-| enableExcelExport   | Boolean       | Exports grid data as an Excel file.                                                                                                                          |
-| enablePdfExport     | Boolean       | Exports grid data as a PDF file.                                                                                                                             |
-| excelName           | String        | The name of the exported Excel file.                                                                                                                         |
-| pdfName             | String        | The name of the exported PDF file.                                                                                                                           |
+| Property          | Type         | Description                                                                                                                                                       |
+| ----------------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| dataSource        | Object Array | Receives an array of objects and maps it to create the grid columns.                                                                                              |
+| columns           | Object Array | Receives an array of objects providing the header part of the grid.                                                                                               |
+| pageSettings      | Object       | Provides settings for pagination (both server-side rendering and client-side rendering).                                                                          |
+| enableSearch      | Boolean      | Enables a global search box.                                                                                                                                      |
+| gridHeight        | Number       | Explicitly changes the height of the grid.                                                                                                                        |
+| lazy              | Boolean      | Enables the grid to lazy load data from the server. Certain functionalities such as global search, pagination, etc., may behave differently in lazy loaded grids. |
+| enableExcelExport | Boolean      | Exports grid data as an Excel file.                                                                                                                               |
+| enablePdfExport   | Boolean      | Exports grid data as a PDF file.                                                                                                                                  |
+| excelName         | String       | The name of the exported Excel file.                                                                                                                              |
+| pdfName           | String       | The name of the exported PDF file.                                                                                                                                |
 
 #### Select
 
@@ -98,12 +98,11 @@ export let countries = [
 
 ##### Props
 
-| Property    | Type     | Description                                                                                                  |
-|-------------|----------|--------------------------------------------------------------------------------------------------------------|
-| placeholder | String   | The placeholder text displayed when no item is selected.                                                      |
-| items       | Array    | An array of items to populate the select dropdown.                                                            |
-| selected    | Any      | The currently selected item.                                                                                  |
-| lazy        | Boolean  | If set to `true`, the select component enables lazy loading of items.                                         |
+| Property    | Type    | Description                                                           |
+| ----------- | ------- | --------------------------------------------------------------------- |
+| placeholder | String  | The placeholder text displayed when no item is selected.              |
+| items       | Array   | An array of items to populate the select dropdown.                    |
+| selected    | Any     | The currently selected item.                                          |
+| lazy        | Boolean | If set to `true`, the select component enables lazy loading of items. |
 
-
-
+For bugs, features and code visit [Github Repo](https://github.com/ananduremanan/svelte-component-library)
