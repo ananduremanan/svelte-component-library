@@ -1,6 +1,6 @@
 {
 	"name": "@grampro/svelte-block",
-	"version": "0.0.11",
+	"version": "0.0.12",
 	"license": "MIT",
 	"main": "dist/index.js",
 	"author": {
@@ -34,6 +34,10 @@
 		"./Select.svelte": {
 			"types": "./dist/select/Select.svelte.d.ts",
 			"svelte": "./dist/select/Select.svelte"
+		},
+		"./MultiSelect.svelte": {
+			"types": "./dist/multiselect/MultiSelect.svelte.d.ts",
+			"svelte": "./dist/multiselect/MultiSelect.svelte"
 		},
 		"./package.json": "./package.json"
 	},

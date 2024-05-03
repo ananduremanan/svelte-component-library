@@ -1,12 +1,11 @@
 # GBS Svelte Blocks(Beta)
 
-Svelte Version of GBS Building Block. Version (0.0.10)(unstable).
+Svelte Version of GBS Building Block. Version (0.0.12)(unstable).
 
 ### Whats New
 
-- Grid PDF export option is now available.
-- Select Component clear option is added.
-- Various Known bugs fixed.
+- Added Multi Select Component.
+- Style Update in Select Component for better UX.
 
 ### Installation
 
@@ -86,7 +85,7 @@ export let countries = [
 ```
 <script lang="ts">
 	import { countries } from '$lib/countries';
-	import Select from '$lib/dropdown/Select.svelte';
+	import Select from '@grampro/svelte-block/Select.svelte';
 
 	let selected: any = undefined;
 </script>
@@ -104,5 +103,49 @@ export let countries = [
 | items       | Array   | An array of items to populate the select dropdown.                    |
 | selected    | Any     | The currently selected item.                                          |
 | lazy        | Boolean | If set to `true`, the select component enables lazy loading of items. |
+
+#### MultiSelect
+
+countries.ts
+
+```
+export let countries = [
+	{ value: 'us', label: 'United States'},
+	{ value: 'fr', label: 'France'},
+	{ value: 'gb', label: 'United Kingdom' },
+	{ value: 'de', label: 'Germany' },
+	{ value: 'jp', label: 'Japan' },
+	{ value: 'au', label: 'Australia' },
+	{ value: 'cn', label: 'China' },
+	{ value: 'in', label: 'India' },
+	{ value: 'mx', label: 'Mexico' },
+]
+```
+
++page.svelte
+
+```
+<script lang="ts">
+	import { countries } from '$lib/countries';
+	import Select from '@grampro/svelte-block/MultiSelect.svelte';
+
+	let selected: any = undefined;
+</script>
+
+<div>
+	<Select items={countries} bind:value={selected} />
+</div>
+```
+
+##### Props
+
+| Property        | Type      | Description                                                                       |
+| --------------- | --------- | --------------------------------------------------------------------------------- |
+| placeholder     | String    | The placeholder text displayed when no item is selected.                          |
+| items           | Array     | An array of items to populate the select dropdown.                                |
+| selected        | Any Array | The currently selected items.                                                     |
+| lazy            | Boolean   | If set to `true`, the multi select component enables lazy loading of items.       |
+| truncate        | Boolean   | If set to `false`, the multi select component disables truncating selected items. |
+| enableSelectAll | Boolean   | If set to `true`, the multi select component enables select all option            |
 
 For bugs, features and code visit [Github Repo](https://github.com/ananduremanan/svelte-component-library)
