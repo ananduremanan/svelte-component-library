@@ -1,11 +1,12 @@
 # GBS Svelte Blocks(Beta)
 
-Svelte Version of GBS Building Block. Version (0.0.12)(unstable).
+Svelte Version of GBS Building Block. Version (0.0.16)(unstable).
 
 ### Whats New
 
-- Added Multi Select Component.
-- Style Update in Select Component for better UX.
+- Updated Grid With Following Feature and bug fix
+	- Feature: Navigation option for last and first page in single click
+	- Bug Fix: Datasource not updating when Asynchronous data fetch happens fixed
 
 ### Installation
 
@@ -148,4 +149,31 @@ export let countries = [
 | truncate        | Boolean   | If set to `false`, the multi select component disables truncating selected items. |
 | enableSelectAll | Boolean   | If set to `true`, the multi select component enables select all option            |
 
+#### Button
+
+```
+<script lang="ts">
+	import Select from '@grampro/svelte-block/Button.svelte';
+</script>
+
+<div>
+	<Button>Submit</Button>
+</div>
+```
+
+##### Props
+
+| Property | Type     | Description                               |
+| -------- | -------- | ----------------------------------------- |
+| children | <slot /> | The placeholder text displayed in button. |
+| href     | string   | Path for navigation.                      |
+| disabled | boolean  | Disabling button.                         |
+| target   | string   | Target for navigation.                    |
+| outline  | Boolean  | Outline Style.                            |
+
 For bugs, features and code visit [Github Repo](https://github.com/ananduremanan/svelte-component-library)
+
+##### Known Bugs
+
+- Type Error when installing on projects uses typescript:
+  - Temporary Fix for this issue is closing the vs code(in case of vs code) and open the project again. (Status: In Progress)
