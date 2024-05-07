@@ -35,18 +35,26 @@
 	let currentPage = 0;
 	let pageStart = 0;
 	let pageEnd = 10;
-	let fullDataSource = [...dataSource];
+	let workingDataSource: any[] = [...dataSource];
 	let searchParam: string | number;
+	let isFilterApplied: boolean = false;
+	let isSearchApplied: boolean = false;
 
 	// Total Number Of Pages Calculation
 	let totalPages = 0;
 
-	function calculateTotalPages() {
-		totalPages = Math.ceil(dataSource.length / pageSettings.pageNumber);
+	// This method is essential for carrying out activities after the component is mounted onto the DOM.
+	// Its goal is to guarantee that the data source updates with parent,
+	// especially in situations when the parent component's asynchronous data fetching takes place.
+	function afterUpdateFunctions() {
+		totalPages = Math.ceil(workingDataSource.length / pageSettings.pageNumber);
+		if (!isFilterApplied && !isSearchApplied) {
+			workingDataSource = [...dataSource];
+		}
 	}
 
-	onMount(calculateTotalPages);
-	afterUpdate(calculateTotalPages);
+	onMount(afterUpdateFunctions);
+	afterUpdate(afterUpdateFunctions);
 
 	// Added an additional column to show filter menu popup for each Column
 	columns = columns.map((column) => ({ ...column, showFilterPopup: false, isFilterActive: false }));
@@ -54,7 +62,8 @@
 	// Function to reset datasource when search cleared
 	function resetSearch(event: any) {
 		if (event.target.value === '') {
-			dataSource = fullDataSource;
+			isSearchApplied = false;
+			workingDataSource = dataSource;
 			goToPage(0);
 		}
 	}
@@ -62,7 +71,8 @@
 	// Function For Serching the Grid
 	function handleSearch(searchParam: any) {
 		if (!lazy) {
-			dataSource = fullDataSource.filter((item: any) => {
+			isSearchApplied = true;
+			workingDataSource = dataSource.filter((item: any) => {
 				for (const key in item) {
 					if (item[key].toString().toLowerCase().includes(searchParam.toLowerCase())) {
 						return true;
@@ -76,26 +86,23 @@
 
 	// *** Filtering Helper Methods Starts Here
 	function handleApplyFilter(event: any) {
-		const { columns: updatedColumns, dataSource: updatedDataSource } = handleApplyFilterHelper(
-			event,
-			columns,
-			dataSource,
-			fullDataSource
-		);
+		isFilterApplied = true;
+		const { columns: updatedColumns, workingDataSource: updatedFullDataSource } =
+			handleApplyFilterHelper(event, columns, dataSource);
 		columns = updatedColumns;
-		dataSource = updatedDataSource;
+		workingDataSource = updatedFullDataSource;
 		goToPage(0);
 	}
 
 	function clearFilter(event: any) {
-		const { columns: updatedColumns, dataSource: updatedDataSource } = clearFilterHelper(
-			event,
-			columns,
-			dataSource,
-			fullDataSource
-		);
+		const {
+			columns: updatedColumns,
+			workingDataSource: updatedDataSource,
+			hasActiveFilters: hasActiveFilters
+		} = clearFilterHelper(event, columns, dataSource);
+		hasActiveFilters ? (isFilterApplied = true) : (isFilterApplied = false);
 		columns = updatedColumns;
-		dataSource = updatedDataSource;
+		workingDataSource = updatedDataSource;
 	}
 	// Filtering Helper Methods Ends  ***
 
@@ -139,7 +146,7 @@
 </script>
 
 <div class="flex flex-col">
-	{#if dataSource}
+	{#if workingDataSource}
 		{#if columns}
 			<!-- Data Table -->
 			<table>
@@ -151,13 +158,13 @@
 								<div class="flex justify-end gap-2">
 									{#if enableExcelExport}
 										<button
-											on:click={() => exportToExcelHelper(dataSource, columns, excelName)}
+											on:click={() => exportToExcelHelper(workingDataSource, columns, excelName)}
 											class="p-1 bg-blue-500 rounded-lg text-xs text-white">Export as Excel</button
 										>
 									{/if}
 									{#if enablePdfExport}
 										<button
-											on:click={() => exportToPDFHelper(dataSource, columns, pdfName)}
+											on:click={() => exportToPDFHelper(workingDataSource, columns, pdfName)}
 											class="p-1 bg-blue-500 rounded-lg text-xs text-white">Export as PDF</button
 										>
 									{/if}
@@ -220,8 +227,8 @@
 				</thead>
 				<tbody>
 					<!-- Data From Datsource Shows Here -->
-					{#if dataSource.length > 0}
-						{#each dataSource.slice(currentPage * pageSettings.pageNumber, (currentPage + 1) * pageSettings.pageNumber) as rowData}
+					{#if workingDataSource.length > 0}
+						{#each workingDataSource.slice(currentPage * pageSettings.pageNumber, (currentPage + 1) * pageSettings.pageNumber) as rowData}
 							<tr>
 								{#each columns as column}
 									<td class={`border p-2 text-sm ${column.template ? '' : ''}`}>
@@ -262,14 +269,14 @@
 													}}>...</button
 												>
 											{/if}
-											{#each Array(Math.min(10, Math.ceil(dataSource.length / pageSettings.pageNumber) - pageStart)) as _, i}
+											{#each Array(Math.min(10, Math.ceil(workingDataSource.length / pageSettings.pageNumber) - pageStart)) as _, i}
 												<button
 													on:click={() => goToPage(i)}
 													class={`${pageStart + i === currentPage ? 'font-bold text-white p-2 h-6 bg-blue-500 flex items-center justify-center rounded-full w-auto' : ''}`}
 													>{pageStart + i + 1}</button
 												>
 											{/each}
-											{#if pageEnd < Math.ceil(dataSource.length / pageSettings.pageNumber)}
+											{#if pageEnd < Math.ceil(workingDataSource.length / pageSettings.pageNumber)}
 												<button
 													class="p-1 w-5 h-5 flex items-center justify-center rounded-full"
 													on:click={() => {
@@ -294,13 +301,13 @@
 
 									<!-- Shows Total Pages and Items In Grid -->
 									<div class="flex text-sm">
-										{currentPage + 1} of {totalPages} pages ({dataSource.length} items)
+										{currentPage + 1} of {totalPages} pages ({workingDataSource.length} items)
 									</div>
 								</div>
 							</td>
 						</tr>
 					{:else}
-						<!-- Shows if Datasource array is empty -->
+						<!-- Shows if workingDataSource array is empty -->
 						<tr>
 							<td colspan={columns.length} class="border p-2 text-center">No Data Found</td>
 						</tr>

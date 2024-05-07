@@ -1,12 +1,12 @@
 # GBS Svelte Blocks(Beta)
 
-Svelte Version of GBS Building Block. Version (0.0.16)(unstable).
+Svelte Version of GBS Building Block. Version (0.0.18)(unstable).
 
 ### Whats New
 
 - Updated Grid With Following Feature and bug fix
-	- Feature: Navigation option for last and first page in single click
 	- Bug Fix: Datasource not updating when Asynchronous data fetch happens fixed
+	- Search and pagination fix
 
 ### Installation
 
