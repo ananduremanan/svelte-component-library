@@ -7,6 +7,7 @@ Svelte Version of GBS Building Block. Version (0.0.18)(unstable).
 - Updated Grid With Following Feature and bug fix
 	- Bug Fix: Datasource not updating when Asynchronous data fetch happens fixed
 	- Search and pagination fix
+	- jspdf-autotable issue when installing package fixed
 
 ### Installation
 
