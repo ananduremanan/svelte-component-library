@@ -1,6 +1,6 @@
 # GBS Svelte Blocks(Beta)
 
-Svelte Version of GBS Building Block. Version (0.0.20)(unstable).
+Svelte Version of GBS Building Block. Version (0.0.21)(unstable).
 
 ### Whats New
 
