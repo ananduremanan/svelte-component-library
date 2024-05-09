@@ -1,6 +1,6 @@
 {
 	"name": "@grampro/svelte-block",
-	"version": "0.0.19",
+	"version": "0.0.21",
 	"license": "MIT",
 	"main": "dist/index.js",
 	"author": {
@@ -51,6 +51,10 @@
 		"./Button.svelte": {
 			"types": "./dist/button/Button.svelte.d.ts",
 			"svelte": "./dist/button/Button.svelte"
+		},
+		"./Modal.svelte": {
+			"types": "./dist/modal/Modal.svelte.d.ts",
+			"svelte": "./dist/modal/Modal.svelte"
 		},
 		"./package.json": "./package.json"
 	},
