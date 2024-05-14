@@ -1,6 +1,6 @@
 {
 	"name": "@grampro/svelte-block",
-	"version": "0.0.21",
+	"version": "0.0.22-alpha",
 	"license": "MIT",
 	"main": "dist/index.js",
 	"author": {
@@ -56,6 +56,10 @@
 			"types": "./dist/modal/Modal.svelte.d.ts",
 			"svelte": "./dist/modal/Modal.svelte"
 		},
+		"./DatePicker.svelte": {
+			"types": "./dist/datepicker/DatePicker.svelte.d.ts",
+			"svelte": "./dist/datepicker/DatePicker.svelte"
+		},
 		"./package.json": "./package.json"
 	},
 	"files": [
@@ -94,12 +98,16 @@
 	"types": "./dist/index.d.ts",
 	"type": "module",
 	"dependencies": {
+		"@internationalized/date": "^3.5.3",
+		"bits-ui": "^0.21.7",
 		"clsx": "^2.1.1",
 		"flowbite-svelte": "^0.46.0",
 		"flowbite-svelte-icons": "^1.5.0",
 		"jspdf": "^2.5.1",
 		"jspdf-autotable": "^3.8.2",
 		"lucide-svelte": "^0.376.1",
+		"tailwind-merge": "^2.3.0",
+		"tailwind-variants": "^0.2.1",
 		"xlsx": "^0.18.5"
 	}
 }

@@ -1,10 +1,10 @@
-# GBS Svelte Blocks(Beta)
+# GBS Svelte Blocks(Alpha-Release)[14-05-2024]
 
-Svelte Version of GBS Building Block. Version (0.0.21)(unstable).
+Svelte Version of GBS Building Block. Version (0.0.22-alpha)(unstable).
 
 ### Whats New
 
-- Modal Style Prop Change
+- Date Picker Component Experimental Release
 
 ### Installation
 
