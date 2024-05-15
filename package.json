@@ -1,6 +1,6 @@
 {
 	"name": "@grampro/svelte-block",
-	"version": "0.0.22-alpha",
+	"version": "0.0.24",
 	"license": "MIT",
 	"main": "dist/index.js",
 	"author": {
@@ -59,6 +59,10 @@
 		"./DatePicker.svelte": {
 			"types": "./dist/datepicker/DatePicker.svelte.d.ts",
 			"svelte": "./dist/datepicker/DatePicker.svelte"
+		},
+		"./TextInput.svelte": {
+			"types": "./dist/textinput/TextInput.svelte.d.ts",
+			"svelte": "./dist/textinput/TextInput.svelte"
 		},
 		"./package.json": "./package.json"
 	},

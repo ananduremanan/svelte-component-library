@@ -1,10 +1,10 @@
-# GBS Svelte Blocks(Alpha-Release)[14-05-2024]
+# GBS Svelte Blocks(Beta)
 
-Svelte Version of GBS Building Block. Version (0.0.22-alpha)(unstable).
+Svelte Version of GBS Building Block. Version (0.0.24)(unstable).
 
 ### Whats New
 
-- Date Picker Component Experimental Release
+- TextInput Added
 
 ### Installation
 
@@ -20,7 +20,7 @@ For More Information about components visit [Documentation](https://gbs-svelte-b
 
 For bugs, features and code visit [Github Repo](https://github.com/ananduremanan/svelte-component-library)
 
-##### Known Bugs
+#### Known Bugs
 
 - Type Error when installing on projects uses typescript:
   - Temporary Fix for this issue is closing the vs code(in case of vs code) and open the project again. (Status: In Progress)

@@ -16,6 +16,7 @@
 	} from './GridHelperFunctions.js';
 	import { Search } from 'flowbite-svelte';
 	import { onMount, afterUpdate } from 'svelte';
+	import { twMerge } from 'tailwind-merge';
 
 	interface PageSettingsProps {
 		pageNumber: number;
@@ -31,6 +32,11 @@
 	export let excelName: string = 'data';
 	export let enablePdfExport: boolean = false;
 	export let pdfName: string = 'data';
+	export let gridContainerClass: string = '';
+	export let gridButtonClass: string = 'px-1 py-2 bg-white border rounded-lg text-xs text-black';
+	export let gridHeaderClass: string = '';
+	export let gridGlobalSearchButtonClass: string = '';
+	export let gridPaginationButtonClass: string = '';
 
 	let currentPage = 0;
 	let pageStart = 0;
@@ -39,14 +45,11 @@
 	let searchParam: string | number;
 	let isFilterApplied: boolean = false;
 	let isSearchApplied: boolean = false;
-
-	// Total Number Of Pages Calculation
 	let totalPages = 0;
 
-	// This method is essential for carrying out activities after the component is mounted onto the DOM.
-	// Its goal is to guarantee that the data source updates with parent,
-	// especially in situations when the parent component's asynchronous data fetching takes place.
+	// Function to handle Asynchronous data fetching on parent.
 	function afterUpdateFunctions() {
+		// Total Number Of Pages Calculation
 		totalPages = Math.ceil(workingDataSource.length / pageSettings.pageNumber);
 		if (!isFilterApplied && !isSearchApplied) {
 			workingDataSource = [...dataSource];
@@ -145,27 +148,27 @@
 	// Page Navigation Helper Methods Ends Here ***
 </script>
 
-<div class="flex flex-col">
+<div class={twMerge(gridContainerClass, 'min-w-screen border rounded-md')}>
 	{#if workingDataSource}
 		{#if columns}
 			<!-- Data Table -->
-			<table>
+			<table class="min-w-full">
 				<thead>
 					<!-- Grid Header Options -->
-					<tr>
-						<th class="border p-1" colspan={columns.length}>
-							{#if enableSearch || enableExcelExport || enablePdfExport}
-								<div class="flex justify-end gap-2">
+					<tr class="">
+						{#if enableSearch || enableExcelExport || enablePdfExport}
+							<th class="px-1 py-3" colspan={columns.length}>
+								<div class={twMerge('flex justify-end gap-2', gridHeaderClass)}>
 									{#if enableExcelExport}
 										<button
 											on:click={() => exportToExcelHelper(workingDataSource, columns, excelName)}
-											class="p-1 bg-blue-500 rounded-lg text-xs text-white">Export as Excel</button
+											class={gridButtonClass}>Export as Excel</button
 										>
 									{/if}
 									{#if enablePdfExport}
 										<button
 											on:click={() => exportToPDFHelper(workingDataSource, columns, pdfName)}
-											class="p-1 bg-blue-500 rounded-lg text-xs text-white">Export as PDF</button
+											class={gridButtonClass}>Export as PDF</button
 										>
 									{/if}
 									{#if enableSearch}
@@ -174,10 +177,13 @@
 												size="sm"
 												bind:value={searchParam}
 												on:input={resetSearch}
-												class="outline-none p-2 text-sm"
+												class="outline-none p-2 text-sm font-normal bg-gray-50"
 											></Search>
 											<button
-												class="bg-blue-500 rounded-lg text-white w-10 flex items-center justify-center"
+												class={twMerge(
+													'bg-white border rounded-lg text-black w-10 flex items-center justify-center',
+													gridGlobalSearchButtonClass
+												)}
 												on:click={() => {
 													handleSearch(searchParam);
 												}}><SearchOutline /></button
@@ -185,12 +191,12 @@
 										</div>
 									{/if}
 								</div>
-							{/if}
-						</th>
+							</th>
+						{/if}
 					</tr>
 					<tr>
 						{#each columns as columnHeader}
-							<th class="border p-2">
+							<th class="border-b border-t bg-gray-50 px-2 py-4">
 								<div class="flex items-center gap-2 text-sm">
 									{#if columnHeader.headerText}
 										{columnHeader.headerText}
@@ -231,9 +237,9 @@
 						{#each workingDataSource.slice(currentPage * pageSettings.pageNumber, (currentPage + 1) * pageSettings.pageNumber) as rowData}
 							<tr>
 								{#each columns as column}
-									<td class={`border p-2 text-sm ${column.template ? '' : ''}`}>
+									<td class={`border-b p-2 text-sm ${column.template ? '' : ''}`}>
 										{#if column.template}
-											<div class="flex justify-center items-center h-full">
+											<div class="flex">
 												<svelte:component this={column.template} {rowData} />
 											</div>
 										{:else}
@@ -245,7 +251,7 @@
 						{/each}
 						<!-- Pagination Logic -->
 						<tr>
-							<td colspan={columns.length} class="border">
+							<td colspan={columns.length} class="">
 								<div class="flex p-2 justify-between">
 									<div class="flex gap-4">
 										<button class="-mr-2" on:click={goToFirstPage}
@@ -272,7 +278,7 @@
 											{#each Array(Math.min(10, Math.ceil(workingDataSource.length / pageSettings.pageNumber) - pageStart)) as _, i}
 												<button
 													on:click={() => goToPage(i)}
-													class={`${pageStart + i === currentPage ? 'font-bold text-white p-2 h-6 bg-blue-500 flex items-center justify-center rounded-full w-auto' : ''}`}
+													class={`${pageStart + i === currentPage ? twMerge('font-bold text-white p-2 h-6 bg-blue-500 flex items-center justify-center rounded-full w-auto', gridPaginationButtonClass) : ''}`}
 													>{pageStart + i + 1}</button
 												>
 											{/each}
