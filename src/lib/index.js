@@ -1,3 +1,3 @@
-export { default as Grid } from './grid/Grid.svelte';
+// export { default as Grid } from './grid/Grid.svelte';
 
-export * from './types.ts';
+// export * from './types.ts';
