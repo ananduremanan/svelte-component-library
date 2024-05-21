@@ -1,13 +1,11 @@
 # GBS Svelte Blocks(Beta)
 
-Svelte Version of GBS Building Block. Version (0.0.26-Beta)(unstable).
+Svelte Version of GBS Building Block. Version (0.0.27)(unstable).
 
 ### Whats New
 
-- TextInput Added
 - Various Known Bug Fix
-- New Experimental Component : Carousal Added.
-- New Experimental method : MakeSound Added.
+- Select Component Improvement
 
 ### Installation
 

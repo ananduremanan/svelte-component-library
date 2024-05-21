@@ -1,6 +1,6 @@
 {
 	"name": "@grampro/svelte-block",
-	"version": "0.0.26.1-beta",
+	"version": "0.0.27",
 	"license": "MIT",
 	"main": "dist/index.js",
 	"author": {
@@ -31,9 +31,6 @@
 		".": {
 			"types": "./dist/index.d.ts",
 			"svelte": "./dist/index.js"
-		},
-		"./makesound": {
-			"types": "./dist/makesound/index.d.ts"
 		},
 		"./Grid.svelte": {
 			"types": "./dist/grid/Grid.svelte.d.ts",
@@ -70,6 +67,10 @@
 		"./Carousal.svelte": {
 			"types": "./dist/carousal/Carousal.svelte.d.ts",
 			"svelte": "./dist/carousal/Carousal.svelte"
+		},
+		"./makesound": {
+			"types": "./dist/makesound/index.d.ts",
+			"import": "./dist/makesound/index.js"
 		},
 		"./package.json": "./package.json"
 	},
