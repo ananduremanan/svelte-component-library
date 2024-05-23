@@ -1,11 +1,11 @@
 # GBS Svelte Blocks(Beta)
 
-Svelte Version of GBS Building Block. Version (0.0.27)(unstable).
+Svelte Version of GBS Building Block. Version (0.0.28)(unstable).
 
 ### Whats New
 
+- Added New Component Toast
 - Various Known Bug Fix
-- Select Component Improvement
 
 ### Installation
 
@@ -17,7 +17,7 @@ Additional Installation Steps.
 
 `@grampro/svelte-block` is heavily relies on tailwind for styling, so you need to setup tailwind in your project. Installation for svelte tailwind can be found in [Here](https://tailwindcss.com/docs/guides/sveltekit).
 
-For More Information about components visit [Documentation](https://gbs-svelte-block.netlify.app/)
+For More Information about components visit [Documentation](https://gbs-svelte-bblock.netlify.app/)
 
 For bugs, features and code visit [Github Repo](https://github.com/ananduremanan/svelte-component-library)
 

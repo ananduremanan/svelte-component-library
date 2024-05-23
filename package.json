@@ -1,6 +1,6 @@
 {
 	"name": "@grampro/svelte-block",
-	"version": "0.0.27",
+	"version": "0.0.28",
 	"license": "MIT",
 	"main": "dist/index.js",
 	"author": {
@@ -67,6 +67,18 @@
 		"./Carousal.svelte": {
 			"types": "./dist/carousal/Carousal.svelte.d.ts",
 			"svelte": "./dist/carousal/Carousal.svelte"
+		},
+		"./Toasts.svelte": {
+			"types": "./dist/toast/Toasts.svelte.d.ts",
+			"svelte": "./dist/toast/Toasts.svelte"
+		},
+		"./Toast.svelte": {
+			"types": "./dist/toast/Toast.svelte.d.ts",
+			"svelte": "./dist/toast/Toast.svelte"
+		},
+		"./addToast": {
+			"types": "./dist/toast/store.d.ts",
+			"import": "./dist/toast/store.js"
 		},
 		"./makesound": {
 			"types": "./dist/makesound/index.d.ts",
