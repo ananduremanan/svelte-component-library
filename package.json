@@ -1,6 +1,6 @@
 {
 	"name": "@grampro/svelte-block",
-	"version": "0.0.28",
+	"version": "0.0.29-beta",
 	"license": "MIT",
 	"main": "dist/index.js",
 	"author": {
@@ -83,6 +83,30 @@
 		"./makesound": {
 			"types": "./dist/makesound/index.d.ts",
 			"import": "./dist/makesound/index.js"
+		},
+		"./AngleLeftOutline": {
+			"types": "./dist/assets/icons/AngleLeftOutline.svelte.d.ts",
+			"svelte": "./dist/assets/icons/AngleLeftOutline.svelte"
+		},
+		"./AngleRightOutline": {
+			"types": "./dist/assets/icons/AngleRightOutline.svelte.d.ts",
+			"svelte": "./dist/assets/icons/AngleRightOutline.svelte"
+		},
+		"./ChevronDoubleLeftOutline": {
+			"types": "./dist/assets/icons/ChevronDoubleLeftOutline.svelte.d.ts",
+			"svelte": "./dist/assets/icons/ChevronDoubleLeftOutline.svelte"
+		},
+		"./ChevronDoubleRightOutline": {
+			"types": "./dist/assets/icons/ChevronDoubleRightOutline.svelte.d.ts",
+			"svelte": "./dist/assets/icons/ChevronDoubleRightOutline.svelte"
+		},
+		"./FilterOutline": {
+			"types": "./dist/assets/icons/FilterOutline.svelte.d.ts",
+			"svelte": "./dist/assets/icons/FilterOutline.svelte"
+		},
+		"./SearchOutline": {
+			"types": "./dist/assets/icons/SearchOutline.svelte.d.ts",
+			"svelte": "./dist/assets/icons/SearchOutline.svelte"
 		},
 		"./package.json": "./package.json"
 	},

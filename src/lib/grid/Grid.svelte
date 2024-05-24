@@ -1,12 +1,10 @@
 <script lang="ts">
-	import {
-		AngleLeftOutline,
-		AngleRightOutline,
-		FilterOutline,
-		SearchOutline,
-		ChevronDoubleRightOutline,
-		ChevronDoubleLeftOutline
-	} from 'flowbite-svelte-icons';
+	import AngleLeftOutline from '../assets/icons/AngleLeftOutline.svelte';
+	import AngleRightOutline from '../assets/icons/AngleRightOutline.svelte';
+	import FilterOutline from '../assets/icons/FilterOutline.svelte';
+	import SearchOutline from '../assets/icons/SearchOutline.svelte';
+	import ChevronDoubleRightOutline from '../assets/icons/ChevronDoubleRightOutline.svelte';
+	import ChevronDoubleLeftOutline from '../assets/icons/ChevronDoubleLeftOutline.svelte';
 	import FilterPopUp from './FilterPopUp.svelte';
 	import {
 		handleApplyFilterHelper,
