@@ -1,3 +1,6 @@
+<!-- Extended Documentation for Grid can be found at 
+https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899d24bc590215a6196435fa3 -->
+
 <script lang="ts">
 	import AngleLeftOutline from '../assets/icons/AngleLeftOutline.svelte';
 	import AngleRightOutline from '../assets/icons/AngleRightOutline.svelte';
@@ -34,6 +37,7 @@
 	export let gridHeaderClass: string = '';
 	export let gridGlobalSearchButtonClass: string = '';
 	export let gridPaginationButtonClass: string = '';
+	export let pdfOptions: any = {};
 
 	let currentPage = 0;
 	let pageStart = 0;
@@ -43,6 +47,8 @@
 	let isFilterApplied: boolean = false;
 	let isSearchApplied: boolean = false;
 	let totalPages = 0;
+	let gridClassContainer =
+		'flex flex-col min-w-screen border rounded-md overflow-hidden dark:text-white';
 
 	// Function to handle Asynchronous data fetching on parent.
 	function afterUpdateFunctions() {
@@ -143,181 +149,200 @@
 		currentPage = pageStart + page;
 	}
 	// Page Navigation Helper Methods Ends Here ***
+
+	// Function to handle editable cells *** !!! Warning This Feature is in Beta.
+	function handleCellEdit(event: any, rowIndex: number, field: string) {
+		const updatedValue = event.target.value;
+		// Update the working data source with the new value
+		workingDataSource[rowIndex][field] = updatedValue;
+		// Here we can Optionally, update the original data source or trigger an update to the backend
+	}
 </script>
 
-<div class={twMerge(gridContainerClass, 'min-w-screen border rounded-md')}>
+<div class={twMerge(gridContainerClass, gridClassContainer)}>
 	{#if workingDataSource}
 		{#if columns}
+			<!-- Grid Header Options -->
+			<div class="self-end">
+				{#if enableSearch || enableExcelExport || enablePdfExport}
+					<th class="px-1 py-3" colspan={columns.length}>
+						<div class={twMerge('flex justify-end gap-2', gridHeaderClass)}>
+							{#if enableExcelExport}
+								<button
+									on:click={() => exportToExcelHelper(workingDataSource, columns, excelName)}
+									class={gridButtonClass}>Export as Excel</button
+								>
+							{/if}
+							{#if enablePdfExport}
+								<button
+									on:click={() =>
+										exportToPDFHelper(workingDataSource, columns, pdfName, pdfOptions)}
+									class={gridButtonClass}>Export as PDF</button
+								>
+							{/if}
+							{#if enableSearch}
+								<div class="flex gap-1">
+									<input
+										type="search"
+										bind:value={searchParam}
+										on:input={resetSearch}
+										class="outline-none p-2 text-sm font-normal bg-gray-50 rounded-lg"
+										placeholder="Search"
+									/>
+									<button
+										class={twMerge(
+											'bg-white border rounded-lg text-black w-10 flex items-center justify-center',
+											gridGlobalSearchButtonClass
+										)}
+										on:click={() => {
+											handleSearch(searchParam);
+										}}><SearchOutline /></button
+									>
+								</div>
+							{/if}
+						</div>
+					</th>
+				{/if}
+			</div>
 			<!-- Data Table -->
-			<table class="min-w-full">
-				<thead>
-					<!-- Grid Header Options -->
-					<tr class="">
-						{#if enableSearch || enableExcelExport || enablePdfExport}
-							<th class="px-1 py-3" colspan={columns.length}>
-								<div class={twMerge('flex justify-end gap-2', gridHeaderClass)}>
-									{#if enableExcelExport}
-										<button
-											on:click={() => exportToExcelHelper(workingDataSource, columns, excelName)}
-											class={gridButtonClass}>Export as Excel</button
-										>
-									{/if}
-									{#if enablePdfExport}
-										<button
-											on:click={() => exportToPDFHelper(workingDataSource, columns, pdfName)}
-											class={gridButtonClass}>Export as PDF</button
-										>
-									{/if}
-									{#if enableSearch}
-										<div class="flex gap-1">
-											<input
-												type="search"
-												bind:value={searchParam}
-												on:input={resetSearch}
-												class="outline-none p-2 text-sm font-normal bg-gray-50 rounded-lg"
-												placeholder="Search"
-											/>
-											<button
-												class={twMerge(
-													'bg-white border rounded-lg text-black w-10 flex items-center justify-center',
-													gridGlobalSearchButtonClass
-												)}
-												on:click={() => {
-													handleSearch(searchParam);
-												}}><SearchOutline /></button
-											>
-										</div>
-									{/if}
-								</div>
-							</th>
-						{/if}
-					</tr>
-					<tr>
-						{#each columns as columnHeader}
-							<th class="border-b border-t bg-gray-50 px-2 py-4">
-								<div class="flex items-center gap-2 text-sm">
-									{#if columnHeader.headerText}
-										{columnHeader.headerText}
-									{:else}
-										{columnHeader.field}
-									{/if}
-									<!-- Filter Logic -->
-									{#if columnHeader.filter && !columnHeader.template}
-										<button
-											on:click={() =>
-												(columnHeader.showFilterPopup = !columnHeader.showFilterPopup)}
-											><FilterOutline
-												size="sm"
-												class={`${columnHeader.isFilterActive ? 'text-red-400' : ''}`}
-											/></button
-										>
-										<!-- Filter Pop Up Component For Showing Filtering Options -->
-										<FilterPopUp
-											bind:show={columnHeader.showFilterPopup}
-											on:cancel={(event) => {
-												if (event.type === 'cancel') {
-													columnHeader.showFilterPopup = !columnHeader.showFilterPopup;
-												}
-											}}
-											on:apply={handleApplyFilter}
-											bind:columnHeader={columnHeader.field}
-											on:clearFilter={clearFilter}
-										/>
-									{/if}
-								</div>
-							</th>
-						{/each}
-					</tr>
-				</thead>
-				<tbody>
-					<!-- Data From Datsource Shows Here -->
-					{#if workingDataSource.length > 0}
-						{#each workingDataSource.slice(currentPage * pageSettings.pageNumber, (currentPage + 1) * pageSettings.pageNumber) as rowData}
-							<tr>
-								{#each columns as column}
-									<td class={`border-b p-2 text-sm ${column.template ? '' : ''}`}>
-										{#if column.template}
-											<div class="flex">
-												<svelte:component this={column.template} {rowData} />
-											</div>
+			<div class="overflow-x-auto">
+				<table class="min-w-full">
+					<thead>
+						<tr>
+							{#each columns as columnHeader}
+								<th class="border-b border-t bg-gray-50 px-2 py-4">
+									<div class="flex items-center gap-2 text-sm">
+										{#if columnHeader.headerText}
+											{columnHeader.headerText}
 										{:else}
-											{rowData[column.field]}
+											{columnHeader.field}
 										{/if}
-									</td>
-								{/each}
+										<!-- Filter Logic -->
+										{#if columnHeader.filter && !columnHeader.template}
+											<button
+												on:click={() =>
+													(columnHeader.showFilterPopup = !columnHeader.showFilterPopup)}
+												><FilterOutline
+													size="sm"
+													class={`${columnHeader.isFilterActive ? 'text-red-400' : ''}`}
+												/></button
+											>
+											<!-- Filter Pop Up Component For Showing Filtering Options -->
+											<FilterPopUp
+												bind:show={columnHeader.showFilterPopup}
+												on:cancel={(event) => {
+													if (event.type === 'cancel') {
+														columnHeader.showFilterPopup = !columnHeader.showFilterPopup;
+													}
+												}}
+												on:apply={handleApplyFilter}
+												bind:columnHeader={columnHeader.field}
+												on:clearFilter={clearFilter}
+											/>
+										{/if}
+										<!-- Editable Column Indicator -->
+										{#if columnHeader.editable}
+											<sup class="w-1 h-1 rounded-full bg-red-400 animate-pulse"></sup>
+										{/if}
+									</div>
+								</th>
+							{/each}
+						</tr>
+					</thead>
+					<tbody>
+						<!-- Data From Datsource Shows Here -->
+						{#if workingDataSource.length > 0}
+							{#each workingDataSource.slice(currentPage * pageSettings.pageNumber, (currentPage + 1) * pageSettings.pageNumber) as rowData, rowIndex}
+								<tr>
+									{#each columns as column}
+										<td class={`border-b p-2 text-sm ${column.template ? '' : ''}`}>
+											{#if column.template}
+												<div class="flex">
+													<svelte:component this={column.template} {rowData} />
+												</div>
+											{:else if column.editable}
+												<input
+													type="text"
+													class="outline-none focus:border-b focus:border-blue-400"
+													value={rowData[column.field]}
+													on:input={(event) => handleCellEdit(event, rowIndex, column.field)}
+												/>
+											{:else}
+												{rowData[column.field]}
+											{/if}
+										</td>
+									{/each}
+								</tr>
+							{/each}
+							<tr>
+								<td colspan={columns.length} class=""> </td>
 							</tr>
+						{:else}
+							<!-- Shows if workingDataSource array is empty -->
+							<tr>
+								<td colspan={columns.length} class="border p-2 text-center">No Data Found</td>
+							</tr>
+						{/if}
+					</tbody>
+				</table>
+			</div>
+			<!-- Pagination Logic -->
+			<div class="flex p-2 justify-between">
+				<div class="flex gap-4">
+					<button class="-mr-2" on:click={goToFirstPage}
+						><ChevronDoubleLeftOutline
+							class={`${currentPage === 0 ? 'text-gray-200' : ''}`}
+						/></button
+					>
+					<button on:click={prevPage}
+						><AngleLeftOutline class={`${currentPage === 0 ? 'text-gray-200' : ''}`} /></button
+					>
+					<div class="flex flex-row gap-3 items-center">
+						{#if pageStart > 0}
+							<button
+								class="p-1 w-5 h-5 flex items-center justify-center rounded-full"
+								on:click={() => {
+									pageStart -= 10;
+									pageEnd -= 10;
+									currentPage = pageStart;
+								}}>...</button
+							>
+						{/if}
+						{#each Array(Math.min(10, Math.ceil(workingDataSource.length / pageSettings.pageNumber) - pageStart)) as _, i}
+							<button
+								on:click={() => goToPage(i)}
+								class={`${pageStart + i === currentPage ? twMerge('font-bold text-white p-2 h-6 bg-blue-500 flex items-center justify-center rounded-full w-auto', gridPaginationButtonClass) : ''}`}
+								>{pageStart + i + 1}</button
+							>
 						{/each}
-						<!-- Pagination Logic -->
-						<tr>
-							<td colspan={columns.length} class="">
-								<div class="flex p-2 justify-between">
-									<div class="flex gap-4">
-										<button class="-mr-2" on:click={goToFirstPage}
-											><ChevronDoubleLeftOutline
-												class={`${currentPage === 0 ? 'text-gray-200' : ''}`}
-											/></button
-										>
-										<button on:click={prevPage}
-											><AngleLeftOutline
-												class={`${currentPage === 0 ? 'text-gray-200' : ''}`}
-											/></button
-										>
-										<div class="flex flex-row gap-3 items-center">
-											{#if pageStart > 0}
-												<button
-													class="p-1 w-5 h-5 flex items-center justify-center rounded-full"
-													on:click={() => {
-														pageStart -= 10;
-														pageEnd -= 10;
-														currentPage = pageStart;
-													}}>...</button
-												>
-											{/if}
-											{#each Array(Math.min(10, Math.ceil(workingDataSource.length / pageSettings.pageNumber) - pageStart)) as _, i}
-												<button
-													on:click={() => goToPage(i)}
-													class={`${pageStart + i === currentPage ? twMerge('font-bold text-white p-2 h-6 bg-blue-500 flex items-center justify-center rounded-full w-auto', gridPaginationButtonClass) : ''}`}
-													>{pageStart + i + 1}</button
-												>
-											{/each}
-											{#if pageEnd < Math.ceil(workingDataSource.length / pageSettings.pageNumber)}
-												<button
-													class="p-1 w-5 h-5 flex items-center justify-center rounded-full"
-													on:click={() => {
-														pageStart += 10;
-														pageEnd += 10;
-														currentPage = pageStart;
-													}}>...</button
-												>
-											{/if}
-										</div>
-										<button on:click={nextPage}
-											><AngleRightOutline
-												class={`${currentPage === totalPages - 1 ? 'text-gray-200' : ''}`}
-											/></button
-										>
-										<button class="-ml-2" on:click={goToEndPage}
-											><ChevronDoubleRightOutline
-												class={`${currentPage === totalPages - 1 ? 'text-gray-200' : ''}`}
-											/></button
-										>
-									</div>
+						{#if pageEnd < Math.ceil(workingDataSource.length / pageSettings.pageNumber)}
+							<button
+								class="p-1 w-5 h-5 flex items-center justify-center rounded-full"
+								on:click={() => {
+									pageStart += 10;
+									pageEnd += 10;
+									currentPage = pageStart;
+								}}>...</button
+							>
+						{/if}
+					</div>
+					<button on:click={nextPage}
+						><AngleRightOutline
+							class={`${currentPage === totalPages - 1 ? 'text-gray-200' : ''}`}
+						/></button
+					>
+					<button class="-ml-2" on:click={goToEndPage}
+						><ChevronDoubleRightOutline
+							class={`${currentPage === totalPages - 1 ? 'text-gray-200' : ''}`}
+						/></button
+					>
+				</div>
 
-									<!-- Shows Total Pages and Items In Grid -->
-									<div class="flex text-sm">
-										{currentPage + 1} of {totalPages} pages ({workingDataSource.length} items)
-									</div>
-								</div>
-							</td>
-						</tr>
-					{:else}
-						<!-- Shows if workingDataSource array is empty -->
-						<tr>
-							<td colspan={columns.length} class="border p-2 text-center">No Data Found</td>
-						</tr>
-					{/if}
-				</tbody>
-			</table>
+				<!-- Shows Total Pages and Items In Grid -->
+				<div class="flex text-sm">
+					{currentPage + 1} of {totalPages} pages ({workingDataSource.length} items)
+				</div>
+			</div>
 		{/if}
 	{/if}
 </div>

@@ -1,11 +1,11 @@
 # GBS Svelte Blocks(Beta)
 
-Svelte Version of GBS Building Block. Version (0.0.28)(unstable).
+Svelte Version of GBS Building Block. Version (0.0.29-2-beta)(unstable).
 
 ### Whats New
 
-- Added New Component Toast
-- Various Known Bug Fix
+- Editable Grid is in Beta (Refer Documentation For More Info)
+- Bug Fix
 
 ### Installation
 
