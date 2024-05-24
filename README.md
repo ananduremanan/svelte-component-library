@@ -1,10 +1,11 @@
 # GBS Svelte Blocks(Beta)
 
-Svelte Version of GBS Building Block. Version (0.0.29-2-beta)(unstable).
+Svelte Version of GBS Building Block. Version (0.0.29-3-beta)(unstable).
 
 ### Whats New
 
 - Editable Grid is in Beta (Refer Documentation For More Info)
+- Paper Option for pdf export
 - Bug Fix
 
 ### Installation
