@@ -13,10 +13,12 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 		handleApplyFilterHelper,
 		clearFilterHelper,
 		exportToExcelHelper,
-		exportToPDFHelper
+		exportToPDFHelper,
+		handleEditActionHelper
 	} from './GridHelperFunctions.js';
 	import { onMount, afterUpdate } from 'svelte';
 	import { twMerge } from 'tailwind-merge';
+	import EditingToolbar from './EditingToolbar.svelte';
 
 	interface PageSettingsProps {
 		pageNumber: number;
@@ -38,6 +40,7 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 	export let gridGlobalSearchButtonClass: string = '';
 	export let gridPaginationButtonClass: string = '';
 	export let pdfOptions: any = {};
+	export let enableEditingBox: boolean = false;
 
 	let currentPage = 0;
 	let pageStart = 0;
@@ -49,6 +52,10 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 	let totalPages = 0;
 	let gridClassContainer =
 		'flex flex-col min-w-screen border rounded-md overflow-hidden dark:text-white';
+	let selectedRowIndex: any;
+	let actionMode: string = '';
+	let newEntry: any = {};
+	let isEditModeActive: boolean = false;
 
 	// Function to handle Asynchronous data fetching on parent.
 	function afterUpdateFunctions() {
@@ -150,12 +157,32 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 	}
 	// Page Navigation Helper Methods Ends Here ***
 
-	// Function to handle editable cells *** !!! Warning This Feature is in Beta.
-	function handleCellEdit(event: any, rowIndex: number, field: string) {
-		const updatedValue = event.target.value;
-		// Update the working data source with the new value
-		workingDataSource[rowIndex][field] = updatedValue;
-		// Here we can Optionally, update the original data source or trigger an update to the backend
+	// Grid Edit Action Handler Functions
+	function handleEditAction(event: any) {
+		const { dataSourceUpdate, isEditModeActiveUpdate, actionModeUpdate, newEntryUpdate } =
+			handleEditActionHelper(
+				event,
+				isEditModeActive,
+				actionMode,
+				newEntry,
+				workingDataSource,
+				goToFirstPage
+			);
+
+		dataSource = dataSourceUpdate;
+		isEditModeActive = isEditModeActiveUpdate;
+		actionMode = actionModeUpdate;
+		newEntry = newEntryUpdate;
+	}
+
+	function handleInputChange(event: any, field: any, type: string) {
+		let value = event.target.value;
+		if (type === 'number') {
+			value = parseInt(value);
+		} else if (type === 'boolean') {
+			value = event.target.checked;
+		}
+		newEntry[field] = value;
 	}
 </script>
 
@@ -163,9 +190,17 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 	{#if workingDataSource}
 		{#if columns}
 			<!-- Grid Header Options -->
-			<div class="self-end">
-				{#if enableSearch || enableExcelExport || enablePdfExport}
-					<th class="px-1 py-3" colspan={columns.length}>
+			{#if enableSearch || enableExcelExport || enablePdfExport || enableEditingBox}
+				<div class="min-w-full flex justify-between items-center">
+					<!-- Grid Editing Tool Box -->
+					{#if enableEditingBox}
+						<EditingToolbar on:edit={handleEditAction} {isEditModeActive} />
+					{/if}
+					<!-- Utility Tools -->
+					<div
+						class="px-1 py-3 flex-grow"
+						class:show={enableSearch || enableExcelExport || enablePdfExport}
+					>
 						<div class={twMerge('flex justify-end gap-2', gridHeaderClass)}>
 							{#if enableExcelExport}
 								<button
@@ -186,7 +221,7 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 										type="search"
 										bind:value={searchParam}
 										on:input={resetSearch}
-										class="outline-none p-2 text-sm font-normal bg-gray-50 rounded-lg"
+										class="outline-none p-2 text-sm font-normal bg-gray-50 rounded-lg max-sm:hidden"
 										placeholder="Search"
 									/>
 									<button
@@ -201,16 +236,20 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 								</div>
 							{/if}
 						</div>
-					</th>
-				{/if}
-			</div>
+					</div>
+				</div>
+			{/if}
+
 			<!-- Data Table -->
 			<div class="overflow-x-auto">
 				<table class="min-w-full">
 					<thead>
 						<tr>
 							{#each columns as columnHeader}
-								<th class="border-b border-t bg-gray-50 px-2 py-4">
+								<th
+									class="border-b border-t bg-gray-50 px-2 py-4"
+									style="width: {columnHeader.width ? `${columnHeader.width}px` : 'auto'};"
+								>
 									<div class="flex items-center gap-2 text-sm">
 										{#if columnHeader.headerText}
 											{columnHeader.headerText}
@@ -240,33 +279,50 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 												on:clearFilter={clearFilter}
 											/>
 										{/if}
-										<!-- Editable Column Indicator -->
-										{#if columnHeader.editable}
-											<sup class="w-1 h-1 rounded-full bg-red-400 animate-pulse"></sup>
-										{/if}
 									</div>
 								</th>
 							{/each}
 						</tr>
+
+						{#if actionMode === 'add'}
+							<tr>
+								{#each columns as columnHeader}
+									<td class="border-b px-2 py-2">
+										{#if columnHeader.type === 'boolean'}
+											<input
+												type="checkbox"
+												class="border p-1"
+												on:change={(event) =>
+													handleInputChange(event, columnHeader.field, columnHeader.type)}
+											/>
+										{:else}
+											<input
+												class="border p-1 w-full rounded-lg outline-none"
+												on:input={(event) =>
+													handleInputChange(event, columnHeader.field, columnHeader.type)}
+												placeholder={`Enter ${columnHeader.field}`}
+												type={columnHeader.type ? columnHeader.type : 'text'}
+											/>
+										{/if}
+									</td>
+								{/each}
+							</tr>
+						{/if}
 					</thead>
 					<tbody>
 						<!-- Data From Datsource Shows Here -->
 						{#if workingDataSource.length > 0}
 							{#each workingDataSource.slice(currentPage * pageSettings.pageNumber, (currentPage + 1) * pageSettings.pageNumber) as rowData, rowIndex}
-								<tr>
+								<tr class={`hover:bg-gray-50 ${selectedRowIndex === rowIndex ? 'bg-gray-50' : ''}`}>
 									{#each columns as column}
-										<td class={`border-b p-2 text-sm ${column.template ? '' : ''}`}>
+										<td
+											class={`border-b p-2 text-sm ${column.template ? '' : ''}`}
+											style="width: {column.width ? `${column.width}px` : 'auto'};"
+										>
 											{#if column.template}
 												<div class="flex">
 													<svelte:component this={column.template} {rowData} />
 												</div>
-											{:else if column.editable}
-												<input
-													type="text"
-													class="outline-none focus:border-b focus:border-blue-400"
-													value={rowData[column.field]}
-													on:input={(event) => handleCellEdit(event, rowIndex, column.field)}
-												/>
 											{:else}
 												{rowData[column.field]}
 											{/if}
@@ -274,9 +330,6 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 									{/each}
 								</tr>
 							{/each}
-							<tr>
-								<td colspan={columns.length} class=""> </td>
-							</tr>
 						{:else}
 							<!-- Shows if workingDataSource array is empty -->
 							<tr>

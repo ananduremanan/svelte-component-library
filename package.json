@@ -1,6 +1,6 @@
 {
 	"name": "@grampro/svelte-block",
-	"version": "0.0.29-3-beta",
+	"version": "0.0.29-5-beta",
 	"license": "MIT",
 	"main": "dist/index.js",
 	"author": {
@@ -39,6 +39,10 @@
 		"./FilterPopUp.svelte": {
 			"types": "./dist/grid/FilterPopUp.svelte.d.ts",
 			"svelte": "./dist/grid/FilterPopUp.svelte"
+		},
+		"./EditingToolbar.svelte": {
+			"types": "./dist/grid/EditingToolbar.svelte.d.ts",
+			"svelte": "./dist/grid/EditingToolbar.svelte"
 		},
 		"./Select.svelte": {
 			"types": "./dist/select/Select.svelte.d.ts",
@@ -107,6 +111,34 @@
 		"./SearchOutline": {
 			"types": "./dist/assets/icons/SearchOutline.svelte.d.ts",
 			"svelte": "./dist/assets/icons/SearchOutline.svelte"
+		},
+		"./ArrowRightToBracketOutline": {
+			"types": "./dist/assets/icons/ArrowRightToBracketOutline.svelte.d.ts",
+			"svelte": "./dist/assets/icons/ArrowRightToBracketOutline.svelte"
+		},
+		"./DotsVerticalOutline": {
+			"types": "./dist/assets/icons/DotsVerticalOutline.svelte.d.ts",
+			"svelte": "./dist/assets/icons/DotsVerticalOutline.svelte"
+		},
+		"./FloppyDiskAltOutline": {
+			"types": "./dist/assets/icons/FloppyDiskAltOutline.svelte.d.ts",
+			"svelte": "./dist/assets/icons/FloppyDiskAltOutline.svelte"
+		},
+		"./PenOutline": {
+			"types": "./dist/assets/icons/PenOutline.svelte.d.ts",
+			"svelte": "./dist/assets/icons/PenOutline.svelte"
+		},
+		"./PenSolid": {
+			"types": "./dist/assets/icons/PenSolid.svelte.d.ts",
+			"svelte": "./dist/assets/icons/PenSolid.svelte"
+		},
+		"./PlusOutline": {
+			"types": "./dist/assets/icons/PlusOutline.svelte.d.ts",
+			"svelte": "./dist/assets/icons/PlusOutline.svelte"
+		},
+		"./TrashBinOutline": {
+			"types": "./dist/assets/icons/TrashBinOutline.svelte.d.ts",
+			"svelte": "./dist/assets/icons/TrashBinOutline.svelte"
 		},
 		"./package.json": "./package.json"
 	},
