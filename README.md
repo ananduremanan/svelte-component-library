@@ -1,11 +1,12 @@
 # GBS Svelte Blocks(Beta)
 
-Svelte Version of GBS Building Block. Version (0.0.29-4-beta)(unstable).
+Svelte Version of GBS Building Block. Version (0.0.31-beta)(unstable).
 
 ### Whats New
 
 - Editable Grid is in Beta(Updated Functionalities)(Refer [Documentation](https://gbs-svelte-bblock.netlify.app/components/Grid) For More Info)
-- Bug Fix
+- Bug Fixes in TextInput, Modal, Grid.
+- Customize Toast as you want along with custom svelte component inside.
 
 ### Installation
 

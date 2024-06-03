@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { X } from 'lucide-svelte';
 	import { twMerge } from 'tailwind-merge';
 
 	export let showModal: boolean = false;
@@ -36,7 +35,7 @@
 			role="dialog"
 		>
 			<div class={twMerge(modalTitleClass, classModalTitle)}>
-				{modalTitle}<X />
+				{modalTitle}
 			</div>
 			<hr />
 			<div class="p-4"><slot /></div>

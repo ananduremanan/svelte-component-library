@@ -316,12 +316,12 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 								<tr class={`hover:bg-gray-50 ${selectedRowIndex === rowIndex ? 'bg-gray-50' : ''}`}>
 									{#each columns as column}
 										<td
-											class={`border-b p-2 text-sm ${column.template ? '' : ''}`}
+											class={`border-b p-2 text-sm dark:text-white ${column.template ? '' : ''}`}
 											style="width: {column.width ? `${column.width}px` : 'auto'};"
 										>
 											{#if column.template}
 												<div class="flex">
-													<svelte:component this={column.template} {rowData} />
+													<svelte:component this={column.template} {rowData} {rowIndex} />
 												</div>
 											{:else}
 												{rowData[column.field]}
@@ -340,7 +340,7 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 				</table>
 			</div>
 			<!-- Pagination Logic -->
-			<div class="flex p-2 justify-between">
+			<div class="flex p-2 justify-between dark:text-white">
 				<div class="flex gap-4">
 					<button class="-mr-2" on:click={goToFirstPage}
 						><ChevronDoubleLeftOutline

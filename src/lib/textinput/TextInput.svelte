@@ -1,12 +1,9 @@
 <script lang="ts">
-	export let type: string = 'text';
-	export let placeholder: string = 'Type Something';
-	export let pattern: string = '';
-	export let id: string = '';
 	export let value: any = '';
 	export let OTPFeild: boolean = false;
 	export let OTPValue: string = '';
 	export let OTPLength: number = 4;
+	export let OTPClass: string = 'w-8 h-10 m-1 border border-gray-600 rounded-lg text-center';
 
 	let defaultClass = 'bg-gray-100 p-2 rounded-lg';
 
@@ -34,12 +31,13 @@
 </script>
 
 {#if !OTPFeild}
-	<input {id} {type} {placeholder} class={defaultClass} {...$$restProps} {pattern} {value} />
+	<div class="text-input-container">
+		<input class={defaultClass} {...$$restProps} bind:value />
+	</div>
 {:else}
 	<div class="otp-container">
 		{#each Array(OTPLength) as _, index (index)}
 			<input
-				{id}
 				type="text"
 				maxlength="1"
 				pattern="[0-9]*"
@@ -47,7 +45,7 @@
 				on:input={(e) => updateOtpValue(index, e)}
 				on:keydown={(e) => handleBackspace(index, e)}
 				bind:this={inputRefs[index]}
-				class="w-8 h-10 m-1 border border-gray-600 rounded-lg text-center"
+				class={OTPClass}
 			/>
 		{/each}
 	</div>
