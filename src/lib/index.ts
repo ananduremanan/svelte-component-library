@@ -7,3 +7,5 @@ export { default as Select } from './select/Select.svelte';
 export { default as Spinner } from './spinner/Spinner.svelte';
 export { default as TextInput } from './textinput/TextInput.svelte';
 export { default as Toasts } from './toast/Toasts.svelte';
+export { default as Range } from './range/Range.svelte';
+export { default as BreadCrumb } from './breadcrumb/BreadCrumb.svelte';

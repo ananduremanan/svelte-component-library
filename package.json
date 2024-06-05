@@ -1,6 +1,6 @@
 {
 	"name": "@grampro/svelte-block",
-	"version": "0.0.31-beta",
+	"version": "0.0.32-1-beta",
 	"license": "MIT",
 	"main": "dist/index.js",
 	"author": {
@@ -71,6 +71,22 @@
 		"./Carousal.svelte": {
 			"types": "./dist/carousal/Carousal.svelte.d.ts",
 			"svelte": "./dist/carousal/Carousal.svelte"
+		},
+		"./Range.svelte": {
+			"types": "./dist/range/Range.svelte.d.ts",
+			"svelte": "./dist/range/Range.svelte"
+		},
+		"./BreadCrumb.svelte": {
+			"types": "./dist/breadcrumb/BreadCrumb.svelte.d.ts",
+			"svelte": "./dist/breadcrumb/BreadCrumb.svelte"
+		},
+		"./Spinner": {
+			"types": "./dist/spinner/Spinner.svelte.d.ts",
+			"svelte": "./dist/spinner/Spinner.svelte"
+		},
+		"./Stroke": {
+			"types": "./dist/spinner/Stroke.svelte.d.ts",
+			"svelte": "./dist/spinner/Stroke.svelte"
 		},
 		"./Toasts.svelte": {
 			"types": "./dist/toast/Toasts.svelte.d.ts",
