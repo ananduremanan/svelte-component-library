@@ -1,6 +1,6 @@
 {
 	"name": "@grampro/svelte-block",
-	"version": "0.0.32-1-beta",
+	"version": "0.0.33-2-beta",
 	"license": "MIT",
 	"main": "dist/index.js",
 	"author": {
@@ -64,9 +64,9 @@
 			"types": "./dist/datepicker/DatePicker.svelte.d.ts",
 			"svelte": "./dist/datepicker/DatePicker.svelte"
 		},
-		"./TextInput.svelte": {
-			"types": "./dist/textinput/TextInput.svelte.d.ts",
-			"svelte": "./dist/textinput/TextInput.svelte"
+		"./Input.svelte": {
+			"types": "./dist/input/Input.svelte.d.ts",
+			"svelte": "./dist/input/Input.svelte"
 		},
 		"./Carousal.svelte": {
 			"types": "./dist/carousal/Carousal.svelte.d.ts",
@@ -79,6 +79,14 @@
 		"./BreadCrumb.svelte": {
 			"types": "./dist/breadcrumb/BreadCrumb.svelte.d.ts",
 			"svelte": "./dist/breadcrumb/BreadCrumb.svelte"
+		},
+		"./CheckBox.svelte": {
+			"types": "./dist/checkbox/CheckBox.svelte.d.ts",
+			"svelte": "./dist/checkbox/CheckBox.svelte"
+		},
+		"./Uploader.svelte": {
+			"types": "./dist/uploader/Uploader.svelte.d.ts",
+			"svelte": "./dist/uploader/Uploader.svelte"
 		},
 		"./Spinner": {
 			"types": "./dist/spinner/Spinner.svelte.d.ts",
@@ -195,9 +203,7 @@
 	"types": "./dist/index.d.ts",
 	"type": "module",
 	"dependencies": {
-		"@internationalized/date": "^3.5.3",
 		"@types/howler": "^2.2.11",
-		"bits-ui": "^0.21.7",
 		"clsx": "^2.1.1",
 		"flowbite-svelte": "^0.46.0",
 		"flowbite-svelte-icons": "^1.5.0",
@@ -205,6 +211,7 @@
 		"jspdf": "^2.5.1",
 		"jspdf-autotable": "^3.8.2",
 		"lucide-svelte": "^0.376.1",
+		"postcss-load-config": "^5.1.0",
 		"siema": "^1.5.1",
 		"tailwind-merge": "^2.3.0",
 		"tailwind-variants": "^0.2.1",
