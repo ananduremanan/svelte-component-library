@@ -164,6 +164,10 @@
 			"types": "./dist/assets/icons/TrashBinOutline.svelte.d.ts",
 			"svelte": "./dist/assets/icons/TrashBinOutline.svelte"
 		},
+		"./Calendar": {
+			"types": "./dist/assets/icons/Calendar.svelte.d.ts",
+			"svelte": "./dist/assets/icons/Calendar.svelte"
+		},
 		"./package.json": "./package.json"
 	},
 	"files": [

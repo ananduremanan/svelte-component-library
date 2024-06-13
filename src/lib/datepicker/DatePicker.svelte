@@ -1,15 +1,14 @@
-<!-- This Component is under development 
-and trying to implement a datepicker without any 
-external dependency -->
-
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import Calendar from '../assets/icons/Calendar.svelte';
 
 	let showDatepicker = false;
-	let selectedDate = new Date();
+	export let selectedDate = new Date();
 	let currentMonth = new Date().getMonth();
 	let currentYear = new Date().getFullYear();
 	let days: any[] = [];
+
+	const today = new Date();
 
 	const toggleDatepicker = () => {
 		showDatepicker = !showDatepicker;
@@ -67,70 +66,67 @@ external dependency -->
 		days = generateCalendar(currentYear, currentMonth);
 	};
 
+	const goToToday = () => {
+		currentMonth = today.getMonth();
+		currentYear = today.getFullYear();
+		days = generateCalendar(currentYear, currentMonth);
+	};
+
 	onMount(() => {
 		days = generateCalendar(currentYear, currentMonth);
 	});
 </script>
 
-<div class="relative inline-block">
-	<button on:click={toggleDatepicker} class="bg-gray-300 text-gray-700 p-2 rounded">
-		{selectedDate.toLocaleDateString()}
+<div class="relative inline-block w-72">
+	<button on:click={toggleDatepicker} class="border p-2 rounded w-full flex gap-2 items-center">
+		<Calendar size={20} />{selectedDate.toLocaleDateString()}
 	</button>
 
 	{#if showDatepicker}
-		<div class="datepicker">
-			<div class="datepicker__header">
-				<button on:click={prevMonth}>&laquo;</button>
+		<div
+			class="absolute z-10 bg-white border border-gray-300 shadow-lg mt-1 w-full rounded dark:bg-black dark:text-white pb-8"
+		>
+			<div class="flex justify-between items-center p-2">
+				<button
+					on:click={prevMonth}
+					class="text-gray-500 hover:text-gray-700 border w-6 h-6 rounded-md flex items-center justify-center"
+					>&laquo;</button
+				>
 				<span
 					>{new Date(currentYear, currentMonth).toLocaleString('default', { month: 'long' })}
 					{currentYear}</span
 				>
-				<button on:click={nextMonth}>&raquo;</button>
+				<button
+					on:click={nextMonth}
+					class="text-gray-500 hover:text-gray-700 border w-6 h-6 rounded-md flex items-center justify-center"
+					>&raquo;</button
+				>
 			</div>
-			<div class="datepicker__days">
+			<div class="grid grid-cols-7 p-2 gap-1">
 				{#each ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] as day}
-					<div class="datepicker__day font-bold">{day}</div>
+					<div class="text-center font-bold text-sm">{day}</div>
 				{/each}
 				{#each days as week}
 					{#each week as day}
 						{#if day}
-							<!-- svelte-ignore a11y-click-events-have-key-events -->
-							<!-- svelte-ignore a11y-no-static-element-interactions -->
-							<div on:click={() => selectDate(day)} class="datepicker__day">{day.getDate()}</div>
+							<button
+								on:click={() => selectDate(day)}
+								class="text-center p-1 cursor-pointer rounded-full hover:bg-gray-200 {day.getDate() ===
+									selectedDate.getDate() &&
+								day.getMonth() === selectedDate.getMonth() &&
+								day.getFullYear() === selectedDate.getFullYear()
+									? 'bg-blue-400 rounded-full text-white'
+									: ''}"
+							>
+								{day.getDate()}
+							</button>
 						{:else}
-							<div class="datepicker__day"></div>
+							<div class="text-center p-1"></div>
 						{/if}
 					{/each}
 				{/each}
 			</div>
+			<button on:click={goToToday} class="px-4 mt-4 text-blue-500">Today</button>
 		</div>
 	{/if}
 </div>
-
-<style>
-	.datepicker {
-		position: absolute;
-		z-index: 10;
-		background: white;
-		border: 1px solid #ddd;
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	}
-	.datepicker__header {
-		display: flex;
-		justify-content: space-between;
-		padding: 0.5rem 1rem;
-	}
-	.datepicker__days {
-		display: grid;
-		grid-template-columns: repeat(7, 1fr);
-		padding: 0.5rem 1rem;
-	}
-	.datepicker__day {
-		text-align: center;
-		padding: 0.5rem;
-		cursor: pointer;
-	}
-	.datepicker__day:hover {
-		background-color: #f0f0f0;
-	}
-</style>
