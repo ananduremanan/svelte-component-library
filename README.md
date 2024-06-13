@@ -1,11 +1,12 @@
-# GBS Svelte Blocks(Beta)(🎉 0.0.33-Beta is Live Now)
+# GBS Svelte Blocks(Beta)(🎉 0.0.33 is Live Now)
 
 Svelte Version of GBS Building Block. Version (0.0.33-1-Beta).
 
 ### Whats New
 
 - Bug Fixes and improvements.
-- Removed bits-ui dependency from datepicker(Date Picker is in development and not recommended to use until become stable)
+- Removed bits-ui dependency from datepicker(Date Picker is in development and not recommended to use until become stable).
+- Dark Mode Support For Grid.
 
 ### Installation
 

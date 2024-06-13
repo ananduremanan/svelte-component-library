@@ -35,7 +35,8 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 	export let enablePdfExport: boolean = false;
 	export let pdfName: string = 'data';
 	export let gridContainerClass: string = '';
-	export let gridButtonClass: string = 'px-1 py-2 bg-white border rounded-lg text-xs text-black';
+	export let gridButtonClass: string =
+		'px-1 py-2 bg-white border rounded-lg text-xs text-black dark:bg-black dark:text-white';
 	export let gridHeaderClass: string = '';
 	export let gridGlobalSearchButtonClass: string = '';
 	export let gridPaginationButtonClass: string = '';
@@ -51,7 +52,7 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 	let isSearchApplied: boolean = false;
 	let totalPages = 0;
 	let gridClassContainer =
-		'flex flex-col min-w-screen border rounded-md overflow-hidden dark:text-white';
+		'flex flex-col min-w-screen border rounded-md overflow-hidden dark:bg-black';
 	let selectedRowIndex: any;
 	let actionMode: string = '';
 	let newEntry: any = {};
@@ -221,12 +222,12 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 										type="search"
 										bind:value={searchParam}
 										on:input={resetSearch}
-										class="outline-none p-2 text-sm font-normal bg-gray-50 rounded-lg max-sm:hidden"
+										class="outline-none p-2 text-sm font-normal bg-gray-50 rounded-lg max-sm:hidden dark:bg-black dark:border dark:text-white"
 										placeholder="Search"
 									/>
 									<button
 										class={twMerge(
-											'bg-white border rounded-lg text-black w-10 flex items-center justify-center',
+											'bg-white border rounded-lg text-black w-10 flex items-center justify-center dark:bg-black dark:text-white',
 											gridGlobalSearchButtonClass
 										)}
 										on:click={() => {
@@ -247,7 +248,7 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 						<tr>
 							{#each columns as columnHeader}
 								<th
-									class="border-b border-t bg-gray-50 px-2 py-4"
+									class="border-b border-t bg-gray-50 px-2 py-4 dark:bg-gray-700 dark:text-white"
 									style="width: {columnHeader.width ? `${columnHeader.width}px` : 'auto'};"
 								>
 									<div class="flex items-center gap-2 text-sm">
@@ -313,7 +314,9 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 						<!-- Data From Datsource Shows Here -->
 						{#if workingDataSource.length > 0}
 							{#each workingDataSource.slice(currentPage * pageSettings.pageNumber, (currentPage + 1) * pageSettings.pageNumber) as rowData, rowIndex}
-								<tr class={`hover:bg-gray-50 ${selectedRowIndex === rowIndex ? 'bg-gray-50' : ''}`}>
+								<tr
+									class={`hover:bg-gray-50 ${selectedRowIndex === rowIndex ? 'bg-gray-50' : ''} dark:hover:bg-gray-900`}
+								>
 									{#each columns as column}
 										<td
 											class={`border-b p-2 text-sm dark:text-white ${column.template ? '' : ''}`}
