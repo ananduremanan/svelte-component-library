@@ -1,6 +1,6 @@
 {
 	"name": "@grampro/svelte-block",
-	"version": "0.0.34-1-beta",
+	"version": "0.0.34",
 	"license": "MIT",
 	"main": "dist/index.js",
 	"author": {

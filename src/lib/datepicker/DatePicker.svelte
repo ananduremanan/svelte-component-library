@@ -4,6 +4,9 @@
 
 	let showDatepicker = false;
 	export let selectedDate = new Date();
+	export let minDate: Date | null = null;
+	export let maxDate: Date | null = null;
+
 	let currentMonth = new Date().getMonth();
 	let currentYear = new Date().getFullYear();
 	let days: any[] = [];
@@ -37,7 +40,8 @@
 				} else if (day > daysInMonth) {
 					week.push(null);
 				} else {
-					week.push(new Date(year, month, day));
+					const date = new Date(year, month, day);
+					week.push(date);
 					day++;
 				}
 			}
@@ -70,6 +74,7 @@
 		currentMonth = today.getMonth();
 		currentYear = today.getFullYear();
 		days = generateCalendar(currentYear, currentMonth);
+		selectedDate = new Date();
 	};
 
 	onMount(() => {
@@ -78,7 +83,10 @@
 </script>
 
 <div class="relative inline-block w-72">
-	<button on:click={toggleDatepicker} class="border p-2 rounded w-full flex gap-2 items-center">
+	<button
+		on:click={toggleDatepicker}
+		class="border p-2 rounded w-full flex gap-2 items-center dark:text-white"
+	>
 		<Calendar size={20} />{selectedDate.toLocaleDateString()}
 	</button>
 
@@ -92,10 +100,10 @@
 					class="text-gray-500 hover:text-gray-700 border w-6 h-6 rounded-md flex items-center justify-center"
 					>&laquo;</button
 				>
-				<span
-					>{new Date(currentYear, currentMonth).toLocaleString('default', { month: 'long' })}
-					{currentYear}</span
-				>
+				<span>
+					{new Date(currentYear, currentMonth).toLocaleString('default', { month: 'long' })}
+					{currentYear}
+				</span>
 				<button
 					on:click={nextMonth}
 					class="text-gray-500 hover:text-gray-700 border w-6 h-6 rounded-md flex items-center justify-center"
@@ -109,17 +117,23 @@
 				{#each days as week}
 					{#each week as day}
 						{#if day}
-							<button
-								on:click={() => selectDate(day)}
-								class="text-center p-1 cursor-pointer rounded-full hover:bg-gray-200 {day.getDate() ===
-									selectedDate.getDate() &&
-								day.getMonth() === selectedDate.getMonth() &&
-								day.getFullYear() === selectedDate.getFullYear()
-									? 'bg-blue-400 rounded-full text-white'
-									: ''}"
-							>
-								{day.getDate()}
-							</button>
+							{#if (!minDate || day >= minDate) && (!maxDate || day <= maxDate)}
+								<button
+									on:click={() => selectDate(day)}
+									class="text-center p-1 cursor-pointer rounded-full hover:bg-gray-200 {day.getDate() ===
+										selectedDate.getDate() &&
+									day.getMonth() === selectedDate.getMonth() &&
+									day.getFullYear() === selectedDate.getFullYear()
+										? 'bg-blue-400 rounded-full text-white'
+										: ''}"
+								>
+									{day.getDate()}
+								</button>
+							{:else}
+								<button disabled class="text-center p-1 rounded-full bg-gray-100 text-gray-400">
+									{day.getDate()}
+								</button>
+							{/if}
 						{:else}
 							<div class="text-center p-1"></div>
 						{/if}
