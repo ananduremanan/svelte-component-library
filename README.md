@@ -1,11 +1,11 @@
-# GBS Svelte Blocks(Beta)(🎉 0.0.34 is Live Now)
+# GBS Svelte Blocks(Beta)(🎉 0.0.35 is Live Now)
 
 Svelte Version of GBS Building Block. Version (0.0.34-1-beta).
 
 ### Whats New
 
 - Bug Fixes and improvements.
-- Redefined datepicker.
+- Grid Issue With Page Calculation is fixed and more fixes on Grid
 
 ### Installation
 

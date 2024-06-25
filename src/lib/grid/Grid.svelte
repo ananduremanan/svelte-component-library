@@ -41,6 +41,7 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 	export let gridPaginationButtonClass: string = '';
 	export let pdfOptions: any = {};
 	export let enableEditingBox: boolean = false;
+	export let isFetching: boolean = false;
 
 	let currentPage = 0;
 	let pageStart = 0;
@@ -64,7 +65,6 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 		if (workingDataSource.length > 0) {
 			totalPages = Math.ceil(workingDataSource.length / pageSettings.pageNumber);
 		}
-		console.log(totalPages);
 		if (!isFilterApplied && !isSearchApplied) {
 			workingDataSource = [...dataSource];
 		}
@@ -337,7 +337,9 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 						{:else}
 							<!-- Shows if workingDataSource array is empty -->
 							<tr>
-								<td colspan={columns.length} class="border p-2 text-center">No Data Found</td>
+								<td colspan={columns.length} class="border p-2 text-center"
+									>{isFetching ? 'Loading Data...' : 'No Data Found'}</td
+								>
 							</tr>
 						{/if}
 					</tbody>
