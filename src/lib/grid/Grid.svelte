@@ -260,6 +260,9 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 										{:else}
 											{columnHeader.field}
 										{/if}
+										{#if columnHeader.mandatory}
+											<span class="text-red-500">*</span>
+										{/if}
 										<!-- Filter Logic -->
 										{#if columnHeader.filter && !columnHeader.template}
 											<button
