@@ -6,6 +6,10 @@
 	"author": {
 		"name": "Anandhu Remanan"
 	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ananduremanan/svelte-component-library"
+	},
 	"keywords": [
 		"svelte",
 		"svelte-component-library",
