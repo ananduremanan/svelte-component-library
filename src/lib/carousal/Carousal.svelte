@@ -108,3 +108,45 @@
 		</ul>
 	{/if}
 </div>
+
+<!--
+## Usage Guide
+@component
+[Go to docs](https://gbs-svelte-bblock.netlify.app/Experimental) for more information.
+## Props
+```javascript
+let perPage = 1;
+let loop = true;
+let autoplay: number = 0;
+let duration = 200;
+let easing = 'ease-out';
+let startIndex = 0;
+let draggable = true;
+let multipleDrag = true;
+let threshold = 20;
+let rtl = false;
+let dots = false;
+```
+
+## Usage
+```svelte
+<script lang="ts">import Carousal from "@grampro/svelte-block/Carousal.svelte";
+</script>
+	<Carousal perPage={1} autoplay={3000}>
+		<div class="w-full flex rounded-lg h-auto md:h-50 px-2">
+			<img
+				src="https://www.sony.net/Products/di_photo-gallery/images/extralarge/1634.JPG"
+				alt=""
+				class="w-full object-cover rounded-lg"
+			/>
+		</div>
+		<div class="w-full flex rounded-lg h-auto md:h-50 px-2">
+			<img
+				src="https://www.sony.net/Products/di_photo-gallery/images/extralarge/1631.JPG"
+				alt=""
+				class="w-full object-cover rounded-lg"
+			/>
+		</div>
+	</Carousal>
+```
+-->

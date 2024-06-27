@@ -27,3 +27,27 @@
 		on:mouseleave><slot /></button
 	>
 {/if}
+
+<!--
+## Usage Guide
+@component
+[Go to docs](https://gbs-svelte-bblock.netlify.app/components/Button) for more information.
+## Props
+```javascript
+let href: string = '';
+let disabled: boolean = false;
+let target: string = '';
+let outline: boolean = false;
+```
+
+## Usage
+```svelte
+<script lang="ts">
+	import { Button } from "@grampro/svelte-block";
+</script>
+
+<div>
+	<Button>Submit</Button>
+</div>
+```
+-->

@@ -144,3 +144,32 @@
 		</div>
 	{/if}
 </div>
+
+<!--
+## Usage Guide
+@component
+[Go to docs](https://gbs-svelte-bblock.netlify.app/components/DatePicker) for more information.
+## Props
+```javascript
+let selectedDate = new Date();
+let minDate: Date | null = null;
+let maxDate: Date | null = null;
+```
+
+## Usage
+```svelte
+<script lang="ts">
+	import DatePicker from "$lib/datepicker/DatePicker.svelte";
+	let value;
+	const today = new Date();
+</script>
+
+<div class="mt-4 flex items-center justify-center">
+	<DatePicker
+		bind:selectedDate={value}
+		minDate={new Date(today.getFullYear(), today.getMonth() - 1, 1)}
+		maxDate={new Date(today.getFullYear(), today.getMonth() + 1, 0)}
+	/>
+</div>
+```
+-->

@@ -34,3 +34,24 @@
 		{/each}
 	</ul>
 </div>
+
+<!--
+## Usage Guide
+@component
+[Go to docs](https://gbs-svelte-bblock.netlify.app/components/BreadCrumb) for more information.
+## Props
+```javascript
+let textActivePathColor: string = 'text-black dark:text-white';
+let textInactivePathColor: string = 'text-gray-500';
+let hoverStyle: string = 'hover:underline';
+```
+
+## Usage
+```svelte
+<script>
+	import { BreadCrumb } from '@grampro/svelte-block';
+</script>
+
+<BreadCrumb />
+```
+-->

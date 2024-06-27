@@ -408,3 +408,54 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 		{/if}
 	{/if}
 </div>
+
+<!--
+## Usage Guide
+@component
+[Go to docs](https://gbs-svelte-bblock.netlify.app/components/Grid) for more information.
+## Props
+```javascript
+let columns: any[];
+let dataSource: any[];
+let pageSettings: PageSettingsProps;
+let enableSearch = false;
+let lazy: boolean = false;
+let enableExcelExport: boolean = false;
+let excelName: string = 'data';
+let enablePdfExport: boolean = false;
+let pdfName: string = 'data';
+let gridContainerClass: string = '';
+let gridButtonClass: string = 'px-1 py-2 bg-white border rounded-lg text-xs text-black';
+let gridHeaderClass: string = '';
+let gridGlobalSearchButtonClass: string = '';
+let gridPaginationButtonClass: string = '';
+let pdfOptions: any = {};
+let enableEditingBox: boolean = false;
+let isFetching: boolean = false;
+```
+
+## Usage
+```svelte
+<script>
+	import { Grid } from '@grampro/svelte-block';
+	import Input from '$lib/Input.svelte';
+	import SerialNumber from '$lib/SerialNumber.svelte';
+	import { dataSource } from '$lib/dataSource';
+
+	const columns = [
+		{ field: 'Sl. No', width: '80', textAlign: 'Right', template: SerialNumber },
+		{ field: 'OrderID', width: '100', textAlign: 'Right' },
+		{ field: 'CustomerID', width: '100' },
+		{ field: 'EmployeeID', width: '100', textAlign: 'Right' },
+		{ field: 'Freight', headerText: 'Frieght', width: '100' },
+		{ field: 'ShipCountry', width: '100' },
+		{ field: 'ShipAddress', width: '150' },
+		{ field: 'Remarks', headerText: 'Remarks', template: Input, width: '200' }
+	];
+</script>
+
+<div class="m-4">
+	<Grid2 {columns} {dataSource} pageSettings={{ pageNumber: 10 }} />
+</div>
+```
+-->
