@@ -173,3 +173,30 @@
 </div>
 
 <svelte:window on:click={handleClickOutside} />
+
+<!--
+## Usage Guide
+@component
+[Go to docs](https://gbs-svelte-bblock.netlify.app/components/MultiSelect) for more information.
+## Props
+```javascript
+let placeholder = 'Select a Value...';
+let items: any[];
+let selected: any[] = [];
+let lazy: boolean = false;
+let truncate: boolean = true;
+let enableSelectAll: boolean = false;
+```
+
+## Usage
+```svelte
+<script lang="ts">import { countries } from "$lib/countries";
+import { MultiSelect } from "@grampro/svelte-block";
+let selected = void 0;
+</script>
+
+<div>
+	<Select items={countries} bind:value={selected} />
+</div>
+```
+-->

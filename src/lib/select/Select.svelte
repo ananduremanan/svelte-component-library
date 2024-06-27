@@ -130,3 +130,34 @@
 </div>
 
 <svelte:window on:click={handleClickOutside} />
+
+<!--
+## Usage Guide
+@component
+[Go to docs](https://gbs-svelte-bblock.netlify.app/components/Select) for more information.
+## Props
+```javascript
+let placeholder = 'Select a Value...';
+let items: any[];
+let selected: any = '';
+let lazy: boolean = false;
+let showSearch: boolean = true;
+let searchboxClass: string = 'p-1 flex rounded-md bg-transparent text-sm outline-none';
+let popUpClass: string =
+		'w-[200px] h-[200px] border px-2 rounded-lg mt-[1px] scrollbar bg-white z-50';
+let itemClass: string = 'text-left hover:bg-blue-100 gap-2 rounded-lg mt-1 text-sm ';
+```
+
+## Usage
+```svelte
+<script lang="ts">
+	import { countries } from "$lib/countries";
+	import { Select } from "@grampro/svelte-block";
+	let selected = void 0;
+</script>
+
+<div>
+	<Select items={countries} bind:selected={selected} />
+</div>
+```
+-->

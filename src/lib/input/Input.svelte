@@ -71,7 +71,7 @@
 <!--
 ## Usage Guide
 @component
-[Go to docs](https://gbs-svelte-bblock.netlify.app/components/BreadCrumb) for more information.
+[Go to docs](https://gbs-svelte-bblock.netlify.app/components/Input) for more information.
 ## Props
 ```javascript
 let value: any = '';
