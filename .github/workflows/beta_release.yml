@@ -1,4 +1,4 @@
-name: Publish to npm
+name: Beta Publish to npm
 
 on:
   push:
