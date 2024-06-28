@@ -1,6 +1,6 @@
 {
 	"name": "@grampro/svelte-block",
-	"version": "0.0.40",
+	"version": "0.0.41-beta",
 	"license": "MIT",
 	"main": "dist/index.js",
 	"author": {
@@ -10,6 +10,7 @@
 		"type": "git",
 		"url": "https://github.com/ananduremanan/svelte-component-library"
 	},
+	"homepage": "https://gramlib.netlify.app/",
 	"keywords": [
 		"svelte",
 		"svelte-component-library",
@@ -171,6 +172,18 @@
 		"./Calendar": {
 			"types": "./dist/assets/icons/Calendar.svelte.d.ts",
 			"svelte": "./dist/assets/icons/Calendar.svelte"
+		},
+		"./Check": {
+			"types": "./dist/assets/icons/Check.svelte.d.ts",
+			"svelte": "./dist/assets/icons/Check.svelte"
+		},
+		"./ChevronsUpDown": {
+			"types": "./dist/assets/icons/ChevronsUpDown.svelte.d.ts",
+			"svelte": "./dist/assets/icons/ChevronsUpDown.svelte"
+		},
+		"./X": {
+			"types": "./dist/assets/icons/X.svelte.d.ts",
+			"svelte": "./dist/assets/icons/X.svelte"
 		},
 		"./package.json": "./package.json"
 	},
