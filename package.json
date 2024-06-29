@@ -1,6 +1,6 @@
 {
 	"name": "@grampro/svelte-block",
-	"version": "0.0.42",
+	"version": "0.0.43",
 	"license": "MIT",
 	"main": "dist/index.js",
 	"author": {
@@ -209,6 +209,7 @@
 		"@sveltejs/package": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@types/eslint": "^8.56.0",
+		"@types/file-saver": "^2.0.7",
 		"@types/siema": "^1.4.11",
 		"@typescript-eslint/eslint-plugin": "^7.0.0",
 		"@typescript-eslint/parser": "^7.0.0",
@@ -234,6 +235,8 @@
 	"dependencies": {
 		"@types/howler": "^2.2.11",
 		"clsx": "^2.1.1",
+		"exceljs": "^4.4.0",
+		"file-saver": "^2.0.5",
 		"flowbite-svelte": "^0.46.0",
 		"flowbite-svelte-icons": "^1.5.0",
 		"howler": "^2.2.4",
@@ -243,7 +246,6 @@
 		"postcss-load-config": "^5.1.0",
 		"siema": "^1.5.1",
 		"tailwind-merge": "^2.3.0",
-		"tailwind-variants": "^0.2.1",
-		"xlsx": "^0.18.5"
+		"tailwind-variants": "^0.2.1"
 	}
 }
