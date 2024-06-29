@@ -1,6 +1,6 @@
 {
 	"name": "@grampro/svelte-block",
-	"version": "0.0.41",
+	"version": "0.0.42",
 	"license": "MIT",
 	"main": "dist/index.js",
 	"author": {
@@ -40,6 +40,10 @@
 		"./Grid.svelte": {
 			"types": "./dist/grid/Grid.svelte.d.ts",
 			"svelte": "./dist/grid/Grid.svelte"
+		},
+		"./Accordion.svelte": {
+			"types": "./dist/accordion/Accordion.svelte.d.ts",
+			"svelte": "./dist/accordion/Accordion.svelte"
 		},
 		"./FilterPopUp.svelte": {
 			"types": "./dist/grid/FilterPopUp.svelte.d.ts",
@@ -96,6 +100,10 @@
 		"./Spinner": {
 			"types": "./dist/spinner/Spinner.svelte.d.ts",
 			"svelte": "./dist/spinner/Spinner.svelte"
+		},
+		"./Toggle": {
+			"types": "./dist/toggle/Toggle.svelte.d.ts",
+			"svelte": "./dist/toggle/Toggle.svelte"
 		},
 		"./Stroke": {
 			"types": "./dist/spinner/Stroke.svelte.d.ts",

@@ -1,3 +1,4 @@
+export { default as Accordion } from './accordion/Accordion.svelte';
 export { default as Button } from './button/Button.svelte';
 export { default as DatePicker } from './datepicker/DatePicker.svelte';
 export { default as Grid } from './grid/Grid.svelte';
@@ -7,6 +8,7 @@ export { default as Select } from './select/Select.svelte';
 export { default as Spinner } from './spinner/Spinner.svelte';
 export { default as Input } from './input/Input.svelte';
 export { default as Toasts } from './toast/Toasts.svelte';
+export { default as Toggle } from './toggle/Toggle.svelte';
 export { default as Range } from './range/Range.svelte';
 export { default as BreadCrumb } from './breadcrumb/BreadCrumb.svelte';
 export { default as CheckBox } from './checkbox/CheckBox.svelte';
