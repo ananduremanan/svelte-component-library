@@ -35,7 +35,8 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 	export let enablePdfExport: boolean = false;
 	export let pdfName: string = 'data';
 	export let gridContainerClass: string = '';
-	export let gridButtonClass: string = 'px-1 py-2 bg-white border rounded-lg text-xs text-black';
+	export let gridButtonClass: string =
+		'px-1 py-2 bg-white border rounded-lg text-xs text-black dark:bg-black dark:text-white';
 	export let gridHeaderClass: string = '';
 	export let gridGlobalSearchButtonClass: string = '';
 	export let gridPaginationButtonClass: string = '';
@@ -55,6 +56,7 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 	let actionMode: string = '';
 	let newEntry: any = {};
 	let isEditModeActive: boolean = false;
+	let selectedRowIndexes: number[] = [];
 
 	let gridClassContainer =
 		'flex flex-col min-w-screen border rounded-md overflow-hidden dark:text-white';
@@ -188,6 +190,8 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 		}
 		newEntry[field] = value;
 	}
+
+	function handleSelect(rowIndex: number, currentPage: number) {}
 </script>
 
 <div class={twMerge(gridContainerClass, gridClassContainer)}>
@@ -225,17 +229,17 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 										type="search"
 										bind:value={searchParam}
 										on:input={resetSearch}
-										class="outline-none p-2 text-sm font-normal bg-gray-50 rounded-lg max-sm:hidden"
+										class="outline-none p-2 text-sm font-normal bg-gray-50 rounded-lg max-sm:hidden dark:bg-gray-700"
 										placeholder="Search"
 									/>
 									<button
 										class={twMerge(
-											'bg-white border rounded-lg text-black w-10 flex items-center justify-center',
+											'bg-white border rounded-lg text-black w-10 flex items-center justify-center dark:bg-black',
 											gridGlobalSearchButtonClass
 										)}
 										on:click={() => {
 											handleSearch(searchParam);
-										}}><SearchOutline /></button
+										}}><SearchOutline class="dark:text-white" /></button
 									>
 								</div>
 							{/if}
@@ -251,7 +255,7 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 						<tr>
 							{#each columns as columnHeader}
 								<th
-									class="border-b border-t bg-gray-50 px-2 py-4"
+									class="border-b border-t bg-gray-50 px-2 py-4 dark:bg-gray-700"
 									style="width: {columnHeader.width ? `${columnHeader.width}px` : 'auto'};"
 								>
 									<div class="flex items-center gap-2 text-sm">
@@ -320,15 +324,24 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 						<!-- Data From Datsource Shows Here -->
 						{#if workingDataSource.length > 0}
 							{#each workingDataSource.slice(currentPage * pageSettings.pageNumber, (currentPage + 1) * pageSettings.pageNumber) as rowData, rowIndex}
-								<tr class={`hover:bg-gray-50 ${selectedRowIndex === rowIndex ? 'bg-gray-50' : ''}`}>
+								<tr
+									class={`hover:bg-gray-50 dark:hover:bg-gray-900 ${selectedRowIndex === rowIndex ? 'bg-gray-50' : ''}`}
+								>
 									{#each columns as column}
 										<td
 											class={`border-b p-2 text-sm dark:text-white ${column.template ? '' : ''}`}
 											style="width: {column.width ? `${column.width}px` : 'auto'};"
+											on:click={() => {
+												handleSelect(rowIndex, currentPage);
+											}}
 										>
 											{#if column.template}
 												<div class="flex">
-													<svelte:component this={column.template} {rowData} {rowIndex} />
+													<svelte:component
+														this={column.template}
+														{rowData}
+														rowIndex={rowIndex + currentPage * pageSettings.pageNumber}
+													/>
 												</div>
 											{:else}
 												{rowData[column.field]}
@@ -373,7 +386,7 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 						{#each Array(Math.min(10, Math.ceil(workingDataSource.length / pageSettings.pageNumber) - pageStart)) as _, i}
 							<button
 								on:click={() => goToPage(i)}
-								class={`${pageStart + i === currentPage ? twMerge('font-bold text-white p-2 h-6 bg-blue-500 flex items-center justify-center rounded-full w-auto', gridPaginationButtonClass) : ''}`}
+								class={`${pageStart + i === currentPage ? twMerge('font-bold text-white p-2 h-6 bg-black flex items-center justify-center rounded-md w-auto dark:bg-white dark:text-black', gridPaginationButtonClass) : ''}`}
 								>{pageStart + i + 1}</button
 							>
 						{/each}

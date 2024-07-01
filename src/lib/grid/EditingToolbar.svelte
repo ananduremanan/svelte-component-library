@@ -58,13 +58,13 @@
 </div>
 <div class="px-2 py-1 flex-grow hidden md:flex">
 	<button
-		class="px-2 rounded-lg bg-white flex items-center text-sm hover:text-blue-400"
+		class="px-2 rounded-lg bg-white flex items-center text-sm dark:bg-black"
 		on:click={() => {
 			dispatch('edit', { mode: 'add' });
-			isEditModeActive = !isEditModeActive;
+			isEditModeActive = true;
 		}}><PlusOutline size="sm" />Add</button
 	>
-	<button class="px-2 rounded-lg bg-white flex items-center text-sm hover:text-blue-400"
+	<button class="px-2 rounded-lg bg-white flex items-center text-sm dark:bg-black"
 		><PenOutline
 			size="sm"
 			on:click={() => {
@@ -72,18 +72,19 @@
 			}}
 		/>Edit</button
 	>
-	<button class="px-2 rounded-lg bg-white flex items-center text-sm hover:text-red-400"
+	<button
+		class="px-2 rounded-lg bg-white flex items-center text-sm hover:text-red-400 dark:bg-black"
 		><TrashBinOutline size="sm" />Delete</button
 	>
 	<button
-		class={`px-2 rounded-lg bg-white flex items-center text-sm ${!isEditModeActive ? 'text-gray-500' : 'hover:text-blue-400'}`}
+		class={`px-2 rounded-lg bg-white flex items-center text-sm dark:bg-black ${!isEditModeActive ? 'text-gray-500' : 'hover:text-blue-400'}`}
 		on:click={() => {
 			dispatch('edit', { mode: 'update' });
 		}}
 		disabled={!isEditModeActive}><FloppyDiskAltOutline size="sm" />Update</button
 	>
 	<button
-		class={`px-2 rounded-lg bg-white flex items-center text-sm ${!isEditModeActive ? 'text-gray-500' : 'hover:text-blue-400'}`}
+		class={`px-2 rounded-lg bg-white flex items-center text-sm dark:bg-black ${!isEditModeActive ? 'text-gray-500' : 'hover:text-blue-400'}`}
 		on:click={() => {
 			dispatch('edit', { mode: 'cancel' });
 		}}
