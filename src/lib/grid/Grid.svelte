@@ -366,11 +366,13 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 				<div class="flex gap-4">
 					<button class="-mr-2" on:click={goToFirstPage}
 						><ChevronDoubleLeftOutline
-							class={`${currentPage === 0 ? 'text-gray-200' : ''}`}
+							class={`${currentPage === 0 ? 'text-gray-200 dark:text-gray-700' : ''}`}
 						/></button
 					>
 					<button on:click={prevPage}
-						><AngleLeftOutline class={`${currentPage === 0 ? 'text-gray-200' : ''}`} /></button
+						><AngleLeftOutline
+							class={`${currentPage === 0 ? 'text-gray-200 dark:text-gray-700' : ''}`}
+						/></button
 					>
 					<div class="flex flex-row gap-3 items-center">
 						{#if pageStart > 0}
@@ -403,12 +405,12 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 					</div>
 					<button on:click={nextPage}
 						><AngleRightOutline
-							class={`${currentPage === totalPages - 1 ? 'text-gray-200' : ''}`}
+							class={`${currentPage === totalPages - 1 ? 'text-gray-200 dark:text-gray-700' : ''}`}
 						/></button
 					>
 					<button class="-ml-2" on:click={goToEndPage}
 						><ChevronDoubleRightOutline
-							class={`${currentPage === totalPages - 1 ? 'text-gray-200' : ''}`}
+							class={`${currentPage === totalPages - 1 ? 'text-gray-200 dark:text-gray-700' : ''}`}
 						/></button
 					>
 				</div>

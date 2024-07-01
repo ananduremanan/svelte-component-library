@@ -1,6 +1,6 @@
-# GBS Svelte Blocks(Beta)(🎉 0.0.44 is Live Now)
+# GBS Svelte Blocks(Beta)(🎉 0.0.45 is Live Now)
 
-Svelte Version of GBS Building Block. Version (0.0.43).
+Svelte Version of GBS Building Block. Version (0.0.45).
 
 ### Whats New
 
