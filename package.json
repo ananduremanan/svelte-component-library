@@ -1,6 +1,6 @@
 {
 	"name": "@grampro/svelte-block",
-	"version": "0.0.45",
+	"version": "0.0.46-beta",
 	"license": "MIT",
 	"main": "dist/index.js",
 	"author": {
@@ -124,6 +124,10 @@
 		"./makesound": {
 			"types": "./dist/makesound/index.d.ts",
 			"import": "./dist/makesound/index.js"
+		},
+		"./generics": {
+			"types": "./dist/generics/index.d.ts",
+			"import": "./dist/generics/index.js"
 		},
 		"./AngleLeftOutline": {
 			"types": "./dist/assets/icons/AngleLeftOutline.svelte.d.ts",
