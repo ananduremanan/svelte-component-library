@@ -43,6 +43,7 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 	export let pdfOptions: any = {};
 	export let enableEditingBox: boolean = false;
 	export let isFetching: boolean = false;
+	export let showPagination: boolean = true;
 
 	let currentPage = 0;
 	let pageStart = 0;
@@ -362,64 +363,66 @@ https://psychedelic-step-e70.notion.site/Svelte-GBS-Component-Library-20ff97c899
 				</table>
 			</div>
 			<!-- Pagination Logic -->
-			<div class="flex p-2 justify-between dark:text-white">
-				<div class="flex gap-4">
-					<button class="-mr-2" on:click={goToFirstPage}
-						><ChevronDoubleLeftOutline
-							class={`${currentPage === 0 ? 'text-gray-200 dark:text-gray-700' : ''}`}
-						/></button
-					>
-					<button on:click={prevPage}
-						><AngleLeftOutline
-							class={`${currentPage === 0 ? 'text-gray-200 dark:text-gray-700' : ''}`}
-						/></button
-					>
-					<div class="flex flex-row gap-3 items-center">
-						{#if pageStart > 0}
-							<button
-								class="p-1 w-5 h-5 flex items-center justify-center rounded-full"
-								on:click={() => {
-									pageStart -= 10;
-									pageEnd -= 10;
-									currentPage = pageStart;
-								}}>...</button
-							>
-						{/if}
-						{#each Array(Math.min(10, Math.ceil(workingDataSource.length / pageSettings.pageNumber) - pageStart)) as _, i}
-							<button
-								on:click={() => goToPage(i)}
-								class={`${pageStart + i === currentPage ? twMerge('font-bold text-white p-2 h-6 bg-black flex items-center justify-center rounded-md w-auto dark:bg-white dark:text-black', gridPaginationButtonClass) : ''}`}
-								>{pageStart + i + 1}</button
-							>
-						{/each}
-						{#if pageEnd < Math.ceil(workingDataSource.length / pageSettings.pageNumber)}
-							<button
-								class="p-1 w-5 h-5 flex items-center justify-center rounded-full"
-								on:click={() => {
-									pageStart += 10;
-									pageEnd += 10;
-									currentPage = pageStart;
-								}}>...</button
-							>
-						{/if}
+			{#if showPagination}
+				<div class="flex p-2 justify-between dark:text-white">
+					<div class="flex gap-4">
+						<button class="-mr-2" on:click={goToFirstPage}
+							><ChevronDoubleLeftOutline
+								class={`${currentPage === 0 ? 'text-gray-200 dark:text-gray-700' : ''}`}
+							/></button
+						>
+						<button on:click={prevPage}
+							><AngleLeftOutline
+								class={`${currentPage === 0 ? 'text-gray-200 dark:text-gray-700' : ''}`}
+							/></button
+						>
+						<div class="flex flex-row gap-3 items-center">
+							{#if pageStart > 0}
+								<button
+									class="p-1 w-5 h-5 flex items-center justify-center rounded-full"
+									on:click={() => {
+										pageStart -= 10;
+										pageEnd -= 10;
+										currentPage = pageStart;
+									}}>...</button
+								>
+							{/if}
+							{#each Array(Math.min(10, Math.ceil(workingDataSource.length / pageSettings.pageNumber) - pageStart)) as _, i}
+								<button
+									on:click={() => goToPage(i)}
+									class={`${pageStart + i === currentPage ? twMerge('font-bold text-white p-2 h-6 bg-black flex items-center justify-center rounded-md w-auto dark:bg-white dark:text-black', gridPaginationButtonClass) : ''}`}
+									>{pageStart + i + 1}</button
+								>
+							{/each}
+							{#if pageEnd < Math.ceil(workingDataSource.length / pageSettings.pageNumber)}
+								<button
+									class="p-1 w-5 h-5 flex items-center justify-center rounded-full"
+									on:click={() => {
+										pageStart += 10;
+										pageEnd += 10;
+										currentPage = pageStart;
+									}}>...</button
+								>
+							{/if}
+						</div>
+						<button on:click={nextPage}
+							><AngleRightOutline
+								class={`${currentPage === totalPages - 1 ? 'text-gray-200 dark:text-gray-700' : ''}`}
+							/></button
+						>
+						<button class="-ml-2" on:click={goToEndPage}
+							><ChevronDoubleRightOutline
+								class={`${currentPage === totalPages - 1 ? 'text-gray-200 dark:text-gray-700' : ''}`}
+							/></button
+						>
 					</div>
-					<button on:click={nextPage}
-						><AngleRightOutline
-							class={`${currentPage === totalPages - 1 ? 'text-gray-200 dark:text-gray-700' : ''}`}
-						/></button
-					>
-					<button class="-ml-2" on:click={goToEndPage}
-						><ChevronDoubleRightOutline
-							class={`${currentPage === totalPages - 1 ? 'text-gray-200 dark:text-gray-700' : ''}`}
-						/></button
-					>
-				</div>
 
-				<!-- Shows Total Pages and Items In Grid -->
-				<div class="flex text-sm">
-					{currentPage + 1} of {totalPages} pages ({workingDataSource.length} items)
+					<!-- Shows Total Pages and Items In Grid -->
+					<div class="flex text-sm">
+						{currentPage + 1} of {totalPages} pages ({workingDataSource.length} items)
+					</div>
 				</div>
-			</div>
+			{/if}
 		{/if}
 	{/if}
 </div>

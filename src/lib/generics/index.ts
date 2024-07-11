@@ -1,3 +1,3 @@
-export * from './getdata.ts';
-export * from './setdata.ts';
-export * from './sort.ts';
+export * from './getdata.js';
+export * from './setdata.js';
+export * from './sort.js';
