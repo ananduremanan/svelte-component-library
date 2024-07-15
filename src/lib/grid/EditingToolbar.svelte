@@ -10,6 +10,7 @@
 	const dispatch = createEventDispatcher();
 	let showMobileEditToolbar: boolean = false;
 	export let isEditModeActive: boolean;
+	export let selectedRowIndex: number | undefined;
 </script>
 
 <div class="sm:block flex flex-grow md:hidden ml-4 relative">
@@ -72,8 +73,12 @@
 			}}
 		/>Edit</button
 	>
-	<button class="px-2 rounded-lg flex items-center text-sm hover:text-red-400 bg-transparent"
-		><TrashBinOutline size="sm" />Delete</button
+	<button
+		class={`px-2 rounded-lg flex items-center text-sm bg-transparent ${selectedRowIndex === undefined ? 'text-gray-500' : 'hover:text-red-400'}`}
+		disabled={selectedRowIndex === undefined}
+		on:click={() => {
+			dispatch('edit', { mode: 'delete' });
+		}}><TrashBinOutline size="sm" />Delete</button
 	>
 	<button
 		class={`px-2 rounded-lg  flex items-center text-sm bg-transparent ${!isEditModeActive ? 'text-gray-500' : 'hover:text-blue-400'}`}

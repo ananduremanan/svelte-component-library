@@ -158,7 +158,8 @@ export function handleEditActionHelper(
 	actionMode: string,
 	newEntry: any,
 	workingDataSource: any[],
-	goToFirstPage: () => void
+	goToFirstPage: () => void,
+	selectedRowIndex: number | undefined
 ) {
 	const { mode } = e.detail;
 	let dataSourceUpdate = [...workingDataSource];
@@ -179,6 +180,10 @@ export function handleEditActionHelper(
 		}
 	}
 
+	function deleteEntry() {
+		dataSourceUpdate = workingDataSource.filter((_, i) => i !== selectedRowIndex);
+	}
+
 	switch (mode) {
 		case 'add':
 			isEditModeActiveUpdate = true;
@@ -192,9 +197,18 @@ export function handleEditActionHelper(
 			addNewEntry();
 			resetEditMode();
 			break;
+		case 'delete':
+			deleteEntry();
+			resetEditMode();
+			break;
 		default:
 			break;
 	}
 
-	return { dataSourceUpdate, isEditModeActiveUpdate, actionModeUpdate, newEntryUpdate };
+	return {
+		dataSourceUpdate,
+		isEditModeActiveUpdate,
+		actionModeUpdate,
+		newEntryUpdate
+	};
 }
