@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { tick } from 'svelte';
 	import ChevronsUpDown from '$lib/assets/icons/ChevronsUpDown.svelte';
 	import X from '$lib/assets/icons/X.svelte';
 	import SearchOutline from '$lib/assets/icons/SearchOutline.svelte';
@@ -8,11 +9,12 @@
 
 	export let placeholder = 'Select a Value...';
 	export let items: any[];
-	export let selected: any = '';
+	export let selected: any = undefined;
 	export let lazy: boolean = false;
 	export let showSearch: boolean = true;
 	export let searchboxClass: string = 'p-1 flex rounded-md bg-transparent text-sm outline-none';
-	export let popUpClass: string = 'w-[200px] h-auto px-2 mt-[1px] bg-white z-50';
+	export let popUpClass: string =
+		'w-[200px] h-auto border px-2 rounded-lg mt-[1px] scrollbar bg-white z-50';
 	export let itemClass: string = 'text-left hover:bg-blue-100 gap-2 rounded-lg mt-1 text-sm ';
 
 	let showPopover = false;
@@ -21,6 +23,8 @@
 	let fullDataSource = [...items];
 	let selectedDisplay: string = '';
 	let popoverPosition: string = 'bottom';
+
+	$: console.log(showPopover);
 
 	// Search handler function
 	function inputSearchHandler(event: any) {
@@ -48,23 +52,24 @@
 		showPopover = !showPopover;
 		items = fullDataSource;
 		if (showPopover) {
-			if (searchRef) {
-				searchRef.focus();
-				setPopoverPosition();
-			}
+			await tick();
+			searchRef.focus();
+			setPopoverPosition();
 		}
 	}
 
 	// Function to set popover position
 	function setPopoverPosition() {
-		const rect = popoverTrigger.getBoundingClientRect();
-		const spaceAbove = rect.top;
-		const spaceBelow = window.innerHeight - rect.bottom;
-		popoverPosition = spaceBelow < 200 && spaceAbove > spaceBelow ? 'top' : 'bottom';
+		if (popoverTrigger) {
+			const rect = popoverTrigger.getBoundingClientRect();
+			const spaceAbove = rect.top;
+			const spaceBelow = window.innerHeight - rect.bottom;
+			popoverPosition = spaceBelow < 200 && spaceAbove > spaceBelow ? 'top' : 'bottom';
+		}
 	}
 </script>
 
-<div {...$$restProps}>
+<div {...$$restProps} class="relative">
 	<div class="relative w-[200px]">
 		<button
 			class="flex items-center border px-4 py-2 w-[200px] justify-between rounded-lg font-medium text-sm"
@@ -82,7 +87,7 @@
 			<button
 				class="absolute right-8 top-0 h-full flex items-center px-2 z-20"
 				on:click={() => {
-					selected = '';
+					selected = undefined;
 					selectedDisplay = '';
 				}}
 			>
@@ -95,7 +100,7 @@
 	{#if showPopover}
 		<div
 			class={twMerge(
-				`absolute overflow-y-auto z-50 scrollbar border rounded-lg ${popoverPosition === 'top' ? 'top-auto bottom-[100%]' : ''}`,
+				`absolute overflow-y-auto z-50 ${popoverPosition === 'top' ? 'top-auto bottom-[100%]' : ''}`,
 				popUpClass
 			)}
 			bind:this={popoverTrigger}
@@ -131,7 +136,7 @@
 					>
 						<Check
 							class={twMerge('mr-2 h-4 w-4')}
-							color={selected.includes(value) ? 'black' : ''}
+							color={selected && selected.includes(value) ? 'black' : ''}
 						/>
 						{label}</button
 					>

@@ -104,7 +104,7 @@
 	}
 </script>
 
-<div {...$$restProps}>
+<div {...$$restProps} class="relative">
 	<div class="relative w-[200px] h-auto">
 		<button
 			class={twMerge(multiselectClass, 'flex items-center border justify-between')}
