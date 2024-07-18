@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { tick } from 'svelte';
 	import ChevronsUpDown from '$lib/assets/icons/ChevronsUpDown.svelte';
 	import X from '$lib/assets/icons/X.svelte';
 	import SearchOutline from '$lib/assets/icons/SearchOutline.svelte';
@@ -13,8 +12,7 @@
 	export let lazy: boolean = false;
 	export let showSearch: boolean = true;
 	export let searchboxClass: string = 'p-1 flex rounded-md bg-transparent text-sm outline-none';
-	export let popUpClass: string =
-		'w-[200px] h-auto border px-2 rounded-lg mt-[1px] scrollbar bg-white z-50';
+	export let popUpClass: string = 'w-[200px] h-auto px-2 mt-[1px] bg-white z-50';
 	export let itemClass: string = 'text-left hover:bg-blue-100 gap-2 rounded-lg mt-1 text-sm ';
 
 	let showPopover = false;
@@ -50,9 +48,10 @@
 		showPopover = !showPopover;
 		items = fullDataSource;
 		if (showPopover) {
-			await tick();
-			searchRef.focus();
-			setPopoverPosition();
+			if (searchRef) {
+				searchRef.focus();
+				setPopoverPosition();
+			}
 		}
 	}
 
@@ -96,7 +95,7 @@
 	{#if showPopover}
 		<div
 			class={twMerge(
-				`absolute overflow-y-auto z-50 ${popoverPosition === 'top' ? 'top-auto bottom-[100%]' : ''}`,
+				`absolute overflow-y-auto z-50 scrollbar border rounded-lg ${popoverPosition === 'top' ? 'top-auto bottom-[100%]' : ''}`,
 				popUpClass
 			)}
 			bind:this={popoverTrigger}
