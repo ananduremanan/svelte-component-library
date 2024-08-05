@@ -1,11 +1,11 @@
-# GBS Svelte Blocks(Beta)(🎉 0.0.50 is Live Now)
+# GBS Svelte Blocks(Beta)(🎉 0.0.51 is Live Now)
 
-Svelte Version of GBS Building Block. Version (0.0.50).
+Svelte Version of GBS Building Block. Version (0.0.51).
 
 ### Whats New
 
 - Bug Fixes and improvements.
-- Select & MultiSelect Bug Fixed on Popup Fixed.
+- Select Component inside Form Issue Fixed.
 
 ### Installation
 
